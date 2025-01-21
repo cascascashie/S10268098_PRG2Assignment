@@ -62,12 +62,26 @@ void LoadAirlinesAndBoardingGates()
 }
 
 
-    // METHOD 2 - Load files (flights) [HNIN THAW]
-
-    void LoadFlights()
+// METHOD 2 - Load files (flights) [HNIN THAW]
+void LoadFlights()
+{   
+    string[] flightsData = File.ReadAllLines("flights.csv");
+    foreach (string data in flightsData)
     {
-        // CAN ADJUST TO HOWEVER YOU WANT 
+        if (data == flightsData[0])
+        {
+            continue;
+        }
+        else
+        {
+            Console.WriteLine(data);
+            Console.WriteLine("");
+            string[] flightDetails = data.Split(",");
+        }
+
     }
+
+}
 
 
 
