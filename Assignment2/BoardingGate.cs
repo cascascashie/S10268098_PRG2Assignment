@@ -14,16 +14,16 @@ namespace Assignment2
 {
     internal class BoardingGate
     {
-        public string GateName { get; private set; }
+        public string GateName { get; set; }
         public bool SupportsCFFT { get; set; }
         public bool SupportsDDJB { get; set; }
         public bool SupportsLWTT { get; set; }
-        public string? AssignedFlightNumber { get; private set; }
+        public string? AssignedFlightNumber { get; set; }
+        public Flight Flight { get; set; }
         public BoardingGate(string gateName)
         {
             GateName = gateName;
         }
-        
         public double CalculateFees()
         {
             if (AssignedFlightNumber == null)

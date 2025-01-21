@@ -45,16 +45,6 @@ namespace Assignment2
             }
             return false;
         }
-        public bool AddFlight(string flightNumber, string airlineCode)
-        {
-            if (!flights.ContainsKey(flightNumber) && Airlines.ContainsKey(airlineCode))
-            {
-                flights[flightNumber] = airlineCode;
-                Airlines[airlineCode].AddFlight(flightNumber);
-                return true;
-            }
-            return false;
-        }
         public Airline? GetAirlineFromFlight(string flightNumber)
         {
             if (flights.TryGetValue(flightNumber, out string? airlineCode))
