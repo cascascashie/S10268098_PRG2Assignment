@@ -16,30 +16,30 @@ namespace Assignment2
     {
         public string Name { get; private set; }
         public string Code { get; private set; }
-        public Dictionary<string, string> FlightNumbers { get; set; }
+        public Dictionary<string, string> Flights { get; set; }
         public Airline(string name, string code)
         {
             Name = name;
             Code = code;
-            FlightNumbers = new Dictionary<string, string>();
+            Flights = new Dictionary<string, string>();
         }
         public bool AddFlight(string flightNumber)
         {
-            if (!FlightNumbers.ContainsKey(flightNumber))
+            if (!Flights.ContainsKey(flightNumber))
             {
-                FlightNumbers[flightNumber] = flightNumber;
+                Flights[flightNumber] = flightNumber;
                 return true;
             }
             return false;
         }
         public bool RemoveFlight(string flightNumber)
         {
-            return FlightNumbers.Remove(flightNumber);
+            return Flights.Remove(flightNumber);
         }
         public double CalculateFees()
         {
-            double totalFees = FlightNumbers.Count * 500;
-            int flightCount = FlightNumbers.Count;
+            double totalFees = Flights.Count * 500;
+            int flightCount = Flights.Count;
             if (flightCount > 5)
             {
                 totalFees *= 0.97;
@@ -50,7 +50,7 @@ namespace Assignment2
         }
         public override string ToString()
         {
-            return $"Airline: {Name} ({Code}), Flights: {FlightNumbers.Count}";
+            return $"Airline: {Name} ({Code}), Flights: {Flights.Count}";
         }
     }
 }

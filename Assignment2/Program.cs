@@ -26,11 +26,9 @@ void LoadAirlinesAndBoardingGates()
             // DATA [0] REPRESENTS THE AIRLINES NAME
             // DATA [1] REPRESENTS THE AIRLINES CODE 
 
-            // NEED TO WAIT FOR HT TO MAKE THE AIRLINES CLASS
-
             // MAKING THE NEW AIRLINES OBJECTS 
-            // Airline airline = new Airline(data[0], data[1]); - UNCOMMENT ONCE HT CREATES THE AIRLINES CLASS !!
-            //Airline.Flights.Add(data[0], airline); - UNCOMMENT ONCE HT CREATES THE AIRLINES CLASS !!
+            Airline airline = new Airline(data[0], data[1]);
+            Airline.Flights.Add(data[0], airline);
         }
     }
 
