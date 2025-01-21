@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Assignment2
 {
-    abstract class Flight // CANNO TBE INSTANTIATED 
+    abstract class Flight // CANNOT BE INSTANTIATED 
     {
         public string FlightNumber { get; set; }
         public string Origin { get; set; }

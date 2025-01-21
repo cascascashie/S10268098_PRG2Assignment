@@ -32,7 +32,19 @@ namespace Assignment2
         // method 
         public override double CalculateFees() // YET TO DO, MUST DO THE QN 
         {
-            double fee = 0;
+            double fee = 500; // lwtt fee
+            double arrivefee = 500;
+            double departfee = 800;
+            double boardgatebasefee = 300;
+            
+            if (Origin !=  "Singapore(SIN)") // IF ORIGIN IS NOT SINGAPORE, MEANS COMES FROM OTHER COUNTRIES/COMING TO SINGAPORE)
+            {
+                fee = fee + arrivefee;
+            }
+            else // DEPARTING FROM SINGPORE 
+            {
+                fee = fee + departfee + boardgatebasefee;
+            }
             return fee;
         }
 
