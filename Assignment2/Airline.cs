@@ -4,13 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//==========================================================
+// Student Number : S10268085
+// Student Name : Khin Hnin Thaw 
+// Partner Name : Dinglasan Casandra Antonia Sarmiento 
+//==========================================================
+
 namespace Assignment2
 {
     internal class Airline
     {
         public string Name { get; private set; }
         public string Code { get; private set; }
-        private Dictionary<string, string> FlightNumbers { get; set; }
+        public Dictionary<string, string> FlightNumbers { get; set; }
         public Airline(string name, string code)
         {
             Name = name;

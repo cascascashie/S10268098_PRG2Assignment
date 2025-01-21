@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//==========================================================
+// Student Number : S10268085
+// Student Name : Khin Hnin Thaw 
+// Partner Name : Dinglasan Casandra Antonia Sarmiento 
+//==========================================================
+
 namespace Assignment2
 {
     internal class BoardingGate
@@ -16,21 +22,8 @@ namespace Assignment2
         public BoardingGate(string gateName)
         {
             GateName = gateName;
-            AssignedFlightNumber = null;
         }
-        public bool AssignFlight(string flightNumber)
-        {
-            if (AssignedFlightNumber == null)
-            {
-                AssignedFlightNumber = flightNumber;
-                return true;
-            }
-            return false;
-        }
-        public void UnassignFlight()
-        {
-            AssignedFlightNumber = null;
-        }
+        
         public double CalculateFees()
         {
             if (AssignedFlightNumber == null)

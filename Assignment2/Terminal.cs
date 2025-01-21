@@ -4,20 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//==========================================================
+// Student Number : S10268085
+// Student Name : Khin Hnin Thaw 
+// Partner Name : Dinglasan Casandra Antonia Sarmiento 
+//==========================================================
+
 namespace Assignment2
 {
     internal class Terminal
     {
         public string TerminalName { get; private set; }
-        private Dictionary<string, Airline> Airlines { get; set; }
-        private Dictionary<string, string> FlightNumbers { get; set; }
-        private Dictionary<string, BoardingGate> BoardingGates { get; set; }
-        private Dictionary<string, double> GateFees { get; set; }
+        public Dictionary<string, Airline> Airlines { get; set; }
+        public Dictionary<string, string> flights { get; set; }
+        public Dictionary<string, BoardingGate> BoardingGates { get; set; }
+        public Dictionary<string, double> GateFees { get; set; }
         public Terminal(string terminalName)
         {
             TerminalName = terminalName;
             Airlines = new Dictionary<string, Airline>();
-            FlightNumbers = new Dictionary<string, string>();
+            flights = new Dictionary<string, string>();
             BoardingGates = new Dictionary<string, BoardingGate>();
             GateFees = new Dictionary<string, double>();
         }
@@ -41,9 +47,9 @@ namespace Assignment2
         }
         public bool AddFlight(string flightNumber, string airlineCode)
         {
-            if (!FlightNumbers.ContainsKey(flightNumber) && Airlines.ContainsKey(airlineCode))
+            if (!flights.ContainsKey(flightNumber) && Airlines.ContainsKey(airlineCode))
             {
-                FlightNumbers[flightNumber] = airlineCode;
+                flights[flightNumber] = airlineCode;
                 Airlines[airlineCode].AddFlight(flightNumber);
                 return true;
             }
@@ -51,7 +57,7 @@ namespace Assignment2
         }
         public Airline? GetAirlineFromFlight(string flightNumber)
         {
-            if (FlightNumbers.TryGetValue(flightNumber, out string? airlineCode))
+            if (flights.TryGetValue(flightNumber, out string? airlineCode))
             {
                 return Airlines.GetValueOrDefault(airlineCode);
             }
@@ -69,7 +75,7 @@ namespace Assignment2
         {
             return $"Terminal {TerminalName}\n" +
                    $"Airlines: {Airlines.Count}\n" +
-                   $"Flights: {FlightNumbers.Count}\n" +
+                   $"Flights: {flights.Count}\n" +
                    $"Boarding Gates: {BoardingGates.Count}";
         }
     }   
