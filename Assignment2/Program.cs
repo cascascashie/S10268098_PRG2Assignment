@@ -54,14 +54,10 @@ void LoadAirlinesAndBoardingGates()
             // DATA[2] REPRESENTS CFFT
             // DATA[3] REPRESENTS LWTT
 
-            // NEED TO WAIT FOR HT TO MAKE BOARDINGGATE CLASS
-
             // MAKING NEW BOARDINGGATE OBJECTS 
-            // BoardingGate boardinggate = new BoardingGate(boardingGatesDetails[0], boardingGatesDetails[1], boardingGatesDetails[2], boardingGatesDetails[3]); 
-            // ^^ - UNCOMMENT ONCE HT CREATES THE BOARDINGGATE CLASS !!
+            BoardingGate boardinggate = new BoardingGate(boardingGatesDetails[0], boardingGatesDetails[1], boardingGatesDetails[2], boardingGatesDetails[3]); 
 
-            //Terminal.BoardingGates.Add(data[0], boardinggate); - UNCOMMENT ONCE HT CREATES BOARDINGGATE AND TERMINAL CLASSES
-        }
+            Terminal.BoardingGates.Add(data[0], boardinggate); 
     }
 }
 

@@ -20,9 +20,12 @@ namespace Assignment2
         public bool SupportsLWTT { get; set; }
         public string? AssignedFlightNumber { get; set; }
         public Flight Flight { get; set; }
-        public BoardingGate(string gateName)
+        public BoardingGate(string gateName, bool cfft, bool ddjb, bool lwtt)
         {
             GateName = gateName;
+            SupportsCFFT = cfft;
+            SupportsDDJB = ddjb;
+            SupportsLWTT = lwtt;
         }
         public double CalculateFees()
         {
