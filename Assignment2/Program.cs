@@ -81,7 +81,6 @@ void LoadFlights()
             Console.WriteLine(data);
             Console.WriteLine("");
             string[] flightDetails = data.Split(",");
-
         }
 
     }
