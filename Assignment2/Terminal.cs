@@ -45,14 +45,17 @@ namespace Assignment2
             }
             return false;
         }
+        
         public Airline? GetAirlineFromFlight(string flightNumber)
         {
-            if (Flights.TryGetValue(flightNumber, out string? airlineCode))
+            if (Flights.TryGetValue(flightNumber, out Flight? flight))
             {
                 return Airlines.GetValueOrDefault(airlineCode);
             }
             return null;
-        }
+        
+        } 
+
         public void PrintAirlineFees()
         {
             foreach (var airline in Airlines.Values)

@@ -23,11 +23,11 @@ namespace Assignment2
             Code = code;
             Flights = new Dictionary<string, Flight>();
         }
-        public bool AddFlight(string flightNumber)
+        public bool AddFlight(string flightNumber, Flight flight)
         {
-            if (!Flights.ContainsKey(flightNumber))
+            if (!(Flights.ContainsKey(flightNumber)))
             {
-                Flights[flightNumber] = flightNumber;
+                Flights[flightNumber] = flight;
                 return true;
             }
             return false;

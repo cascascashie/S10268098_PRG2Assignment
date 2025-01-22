@@ -1,19 +1,18 @@
 ﻿// See https://aka.ms/new-console-template for more information
-
-// BASIC FEATURES [50% INDIVIDUAL]
-
 using Assignment2;
 
-//DICTIONARYS 
-// AIRLINE DICTIONARY
+// DICTIONARY'S
+// AIRLINES
 Dictionary<string, Airline> AirlineDict = new Dictionary<string, Airline>();
 
-// BOARDING GATE DICTIONARY
+// BOARDING GATE
 Dictionary<string, BoardingGate> BoardingGateDict = new Dictionary<string, BoardingGate>();
 
-// FLIGHT DICTIONARY
+// FLIGHTS
 Dictionary<string, Flight> FlightDict = new Dictionary<string, Flight>();
 
+
+// BASIC FEATURES [50% INDIVIDUAL]
 
 // METHOD 1 - Load files (airlines and boarding gates) [CASANDRA] 
 void LoadAirlinesAndBoardingGates()
@@ -33,12 +32,11 @@ void LoadAirlinesAndBoardingGates()
             string[] airlinesDetails = data.Split(','); // SPECIFIC DETAILS FOR ONE AIRLINES (SPECIFIC AIRLINE, AIRLINES CODE}
 
             // NOTE 
-            // airlinesDetails[0] REPRESENTS THE AIRLINES NAME
-            // airlinesDetails[1] REPRESENTS THE AIRLINES CODE 
+            // DATA [0] REPRESENTS THE AIRLINES NAME
+            // DATA [1] REPRESENTS THE AIRLINES CODE 
 
             // MAKING THE NEW AIRLINES OBJECTS 
             Airline airline = new Airline(airlinesDetails[0], airlinesDetails[1]);
-            airline.ToString();
             AirlineDict.Add(airlinesDetails[0], airline);
         }
     }
@@ -60,14 +58,14 @@ void LoadAirlinesAndBoardingGates()
             string[] boardingGatesDetails = data.Split(",");
 
             // NOTE
-            // boardingGatesDetails[0] REPRESENTS BOARDING GATE 
-            // boardingGatesDetails[1] REPRESENTS DDJB
-            // boardingGatesDetails[2] REPRESENTS CFFT
-            // boardingGatesDetails[3] REPRESENTS LWTT
+            // DATA[0] REPRESENTS BOARDING GATE 
+            // DATA[1] REPRESENTS DDJB
+            // DATA[2] REPRESENTS CFFT
+            // DATA[3] REPRESENTS LWTT
 
             // MAKING NEW BOARDINGGATE OBJECTS 
             BoardingGate boardinggate = new BoardingGate(boardingGatesDetails[0], Convert.ToBoolean(boardingGatesDetails[1]), Convert.ToBoolean(boardingGatesDetails[2]), Convert.ToBoolean(boardingGatesDetails[3]));
-            boardinggate.ToString();
+
             BoardingGateDict.Add(boardingGatesDetails[0], boardinggate);
         }
     }
@@ -104,7 +102,9 @@ void LoadFlights()
 }
 
 
-// METHOD 3 - List all flights with basic information [HNIN THAW]
+
+
+    // METHOD 3 - List all flights with basic information [HNIN THAW]
 
 void ListFlightDetails()
 {
@@ -220,9 +220,10 @@ void MainMenu()
 
 
 
-// MAIN LOOP 
+    // MAIN LOOP 
 
-// NOTE FOR FUTURE REFERENCE : 
-// WHEN LOADING THE FILES, NEED TO PUT "FINISHED LOADING AND DISPLAY QUANTITY OF THINGS LOADED, THEN HAVE A GAP
-// BEFORE THE MAIN MENU 
+    // NOTE FOR FUTURE REFERENCE : 
+    // WHEN LOADING THE FILES, NEED TO PUT "FINISHED LOADING AND DISPLAY QUANTITY OF THINGS LOADED, THEN HAVE A GAP
+    // BEFORE THE MAIN MENU 
+
 
