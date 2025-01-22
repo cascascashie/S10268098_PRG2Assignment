@@ -27,8 +27,8 @@ void LoadAirlinesAndBoardingGates()
             // DATA [1] REPRESENTS THE AIRLINES CODE 
 
             // MAKING THE NEW AIRLINES OBJECTS 
-            Airline airline = new Airline(data[0], data[1]);
-            Airline.Flights.Add(data[0], airline);
+            Airline airline = new Airline(airlinesDetails[0], airlinesDetails[1]);
+            //airline.Flights.Add(airlinesDetails[0], airline);
         }
     }
 
@@ -43,8 +43,8 @@ void LoadAirlinesAndBoardingGates()
         }
         else
         {
-            Console.WriteLine(data);
-            Console.WriteLine("");
+            //Console.WriteLine(data);
+            //Console.WriteLine("");
 
             string[] boardingGatesDetails = data.Split(",");
 
@@ -55,16 +55,18 @@ void LoadAirlinesAndBoardingGates()
             // DATA[3] REPRESENTS LWTT
 
             // MAKING NEW BOARDINGGATE OBJECTS 
-            BoardingGate boardinggate = new BoardingGate(boardingGatesDetails[0], boardingGatesDetails[1], boardingGatesDetails[2], boardingGatesDetails[3]); 
+            BoardingGate boardinggate = new BoardingGate(boardingGatesDetails[0], Convert.ToBoolean(boardingGatesDetails[1]), Convert.ToBoolean(boardingGatesDetails[2]), Convert.ToBoolean(boardingGatesDetails[3]));
 
-            Terminal.BoardingGates.Add(data[0], boardinggate); 
+            //Terminal.BoardingGates.Add(boardingGatesDetails[0], boardinggate); 
+        }
     }
 }
 
+LoadAirlinesAndBoardingGates();
 
-// METHOD 2 - Load files (flights) [HNIN THAW]
+    // METHOD 2 - Load files (flights) [HNIN THAW]
 void LoadFlights()
-{   
+{
     string[] flightsData = File.ReadAllLines("flights.csv");
     foreach (string data in flightsData)
     {
@@ -86,72 +88,72 @@ void LoadFlights()
 
 
 
-    // METHOD 3 - List all flights with basic information [HNIN THAW]
+// METHOD 3 - List all flights with basic information [HNIN THAW]
 
-    void ListFlightDetails()
-    {
-        // CAN ADJUST TO HOWEVER YOU WANT 
-    }
+void ListFlightDetails()
+{
+    // CAN ADJUST TO HOWEVER YOU WANT 
+}
 
 
 
 
     // METHOD 4 - List all boarding gates [CASANDRA] 
 
-    void ListBoardingGates()
-    {
-        // CAN ADJUST TO HOWEVER YOU WANT 
-    }
+void ListBoardingGates()
+{
+    // CAN ADJUST TO HOWEVER YOU WANT 
+}
 
 
 
 
     // METHOD 5 - Assign a boarding gate to a flight [HNIN THAW]
 
-    void AssignBoardingGateToFlight()
-    {
-        // CAN ADJUST TO HOWEVER YOU WANT 
-    }
+void AssignBoardingGateToFlight()
+{
+    // CAN ADJUST TO HOWEVER YOU WANT 
+}
 
 
 
 
     // METHOD 6 - Create a new flight [HNIN THAW]
 
-    void CreateFlight()
-    {
-        // CAN ADJUST TO HOWEVER YOU WANT 
-    }
+void CreateFlight()
+{
+    // CAN ADJUST TO HOWEVER YOU WANT 
+}
 
 
 
 
     // METHOD 7 - Display full flight details from an airline [CASANDRA] 
 
-    void FullFlightDetail()
-    {
-        // CAN ADJUST TO HOWEVER YOU WANT 
-    }
+void FullFlightDetail()
+{
+    // CAN ADJUST TO HOWEVER YOU WANT 
+}
 
 
 
 
     // METHOD 8 - Modify flight details [CASANDRA] 
 
-    void ModifyFlightDetails()
-    {
-        // CAN ADJUST TO HOWEVER YOU WANT 
-    }
+void ModifyFlightDetails()
+{
+    // CAN ADJUST TO HOWEVER YOU WANT 
+}
 
 
 
 
     // METHOD 9 - Display scheduled flights in chronological order, where boarding gates are applicable [HNIN THAW]
 
-    void DisplayFlights()
-    {
-        // CAN ADJUST TO HOWEVER YOU WANT 
-    }
+void DisplayFlights()
+{
+    // CAN ADJUST TO HOWEVER YOU WANT 
+}
 
 
 
@@ -202,10 +204,9 @@ void LoadFlights()
 
 
 
+
     // MAIN LOOP 
 
     // NOTE FOR FUTURE REFERENCE : 
     // WHEN LOADING THE FILES, NEED TO PUT "FINISHED LOADING AND DISPLAY QUANTITY OF THINGS LOADED, THEN HAVE A GAP
     // BEFORE THE MAIN MENU 
-
-

@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace Assignment2
 {
-    internal class Airline
+    class Airline
     {
         public string Name { get; private set; }
         public string Code { get; private set; }
-        public Dictionary<string, string> Flights { get; set; }
+        public Dictionary<string, Flight> Flights { get; set; }
         public Airline(string name, string code)
         {
             Name = name;
             Code = code;
-            Flights = new Dictionary<string, string>();
+            Flights = new Dictionary<string, Flight>();
         }
         public bool AddFlight(string flightNumber)
         {

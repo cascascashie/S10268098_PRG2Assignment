@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Assignment2
 {
-    internal class BoardingGate
+    class BoardingGate
     {
         public string GateName { get; set; }
         public bool SupportsCFFT { get; set; }
