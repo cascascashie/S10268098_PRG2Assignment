@@ -96,7 +96,8 @@ void LoadFlights()
             flightDetails[5]   // status
         );
 
-        flights.Add(flight.FlightNumber, flight);
+        //flights.Add(flight.FlightNumber, flight);
+        FlightDict.Add(flightDetails[0], flight);
     }
 
 }
