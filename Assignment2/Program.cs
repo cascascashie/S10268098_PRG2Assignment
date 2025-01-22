@@ -4,6 +4,17 @@
 
 using Assignment2;
 
+//DICTIONARYS 
+// AIRLINE DICTIONARY
+Dictionary<string, Airline> AirlineDict = new Dictionary<string, Airline>();
+
+// BOARDING GATE DICTIONARY
+Dictionary<string, BoardingGate> BoardingGateDict = new Dictionary<string, BoardingGate>();
+
+// FLIGHT DICTIONARY
+Dictionary<string, Flight> FlightDict = new Dictionary<string, Flight>();
+
+
 // METHOD 1 - Load files (airlines and boarding gates) [CASANDRA] 
 void LoadAirlinesAndBoardingGates()
 {
@@ -22,12 +33,13 @@ void LoadAirlinesAndBoardingGates()
             string[] airlinesDetails = data.Split(','); // SPECIFIC DETAILS FOR ONE AIRLINES (SPECIFIC AIRLINE, AIRLINES CODE}
 
             // NOTE 
-            // DATA [0] REPRESENTS THE AIRLINES NAME
-            // DATA [1] REPRESENTS THE AIRLINES CODE 
+            // airlinesDetails[0] REPRESENTS THE AIRLINES NAME
+            // airlinesDetails[1] REPRESENTS THE AIRLINES CODE 
 
             // MAKING THE NEW AIRLINES OBJECTS 
             Airline airline = new Airline(airlinesDetails[0], airlinesDetails[1]);
-            //airline.Flights.Add(airlinesDetails[0], airline);
+            airline.ToString();
+            AirlineDict.Add(airlinesDetails[0], airline);
         }
     }
 
@@ -48,15 +60,15 @@ void LoadAirlinesAndBoardingGates()
             string[] boardingGatesDetails = data.Split(",");
 
             // NOTE
-            // DATA[0] REPRESENTS BOARDING GATE 
-            // DATA[1] REPRESENTS DDJB
-            // DATA[2] REPRESENTS CFFT
-            // DATA[3] REPRESENTS LWTT
+            // boardingGatesDetails[0] REPRESENTS BOARDING GATE 
+            // boardingGatesDetails[1] REPRESENTS DDJB
+            // boardingGatesDetails[2] REPRESENTS CFFT
+            // boardingGatesDetails[3] REPRESENTS LWTT
 
             // MAKING NEW BOARDINGGATE OBJECTS 
             BoardingGate boardinggate = new BoardingGate(boardingGatesDetails[0], Convert.ToBoolean(boardingGatesDetails[1]), Convert.ToBoolean(boardingGatesDetails[2]), Convert.ToBoolean(boardingGatesDetails[3]));
-
-            //Terminal.BoardingGates.Add(boardingGatesDetails[0], boardinggate); 
+            boardinggate.ToString();
+            BoardingGateDict.Add(boardingGatesDetails[0], boardinggate);
         }
     }
 }
