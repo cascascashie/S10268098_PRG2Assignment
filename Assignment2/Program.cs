@@ -70,19 +70,26 @@ void LoadAirlinesAndBoardingGates()
 void LoadFlights()
 {   
     string[] flightsData = File.ReadAllLines("flights.csv");
+    Dictionary<string, Flight> flights = new Dictionary<string, Flight>();
+
     foreach (string data in flightsData)
     {
         if (data == flightsData[0])
         {
             continue;
         }
-        else
-        {
-            Console.WriteLine(data);
-            Console.WriteLine("");
-            string[] flightDetails = data.Split(",");
-        }
 
+        string[] flightDetails = data.Split(",");
+
+        Flight flight = new NORMFlight(
+            flightDetails[0],  // flight no.
+            flightDetails[2],  // origin
+            flightDetails[3],  // destination
+            DateTime.Parse(flightDetails[4]),  // expected time
+            flightDetails[5]   // status
+        );
+
+        flights.Add(flight.FlightNumber, flight);
     }
 
 }
