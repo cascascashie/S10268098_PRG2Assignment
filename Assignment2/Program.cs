@@ -73,7 +73,7 @@ void LoadAirlinesAndBoardingGates()
 
 LoadAirlinesAndBoardingGates();
 
-    // METHOD 2 - Load files (flights) [HNIN THAW]
+// METHOD 2 - Load files (flights) [HNIN THAW]
 void LoadFlights()
 {
     string[] flightsData = File.ReadAllLines("flights.csv");

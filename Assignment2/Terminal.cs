@@ -19,6 +19,7 @@ namespace Assignment2
         public Dictionary<string, Flight> Flights { get; set; }
         public Dictionary<string, BoardingGate> BoardingGates { get; set; }
         public Dictionary<string, double> GateFees { get; set; }
+
         public Terminal(string terminalName)
         {
             TerminalName = terminalName;
@@ -50,12 +51,11 @@ namespace Assignment2
         {
             if (Flights.TryGetValue(flightNumber, out Flight? flight))
             {
-                return Airlines.GetValueOrDefault(airlineCode);
+                return Airlines.GetValueOrDefault();
             }
             return null;
-        
-        } 
 
+        }
         public void PrintAirlineFees()
         {
             foreach (var airline in Airlines.Values)
