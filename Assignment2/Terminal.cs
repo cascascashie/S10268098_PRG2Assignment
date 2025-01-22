@@ -12,18 +12,18 @@ using System.Threading.Tasks;
 
 namespace Assignment2
 {
-    internal class Terminal
+    class Terminal
     {
         public string TerminalName { get; private set; }
         public Dictionary<string, Airline> Airlines { get; set; }
-        public Dictionary<string, string> flights { get; set; }
+        public Dictionary<string, Flight> Flights { get; set; }
         public Dictionary<string, BoardingGate> BoardingGates { get; set; }
         public Dictionary<string, double> GateFees { get; set; }
         public Terminal(string terminalName)
         {
             TerminalName = terminalName;
             Airlines = new Dictionary<string, Airline>();
-            flights = new Dictionary<string, string>();
+            Flights = new Dictionary<string, Flight>();
             BoardingGates = new Dictionary<string, BoardingGate>();
             GateFees = new Dictionary<string, double>();
         }
@@ -47,7 +47,7 @@ namespace Assignment2
         }
         public Airline? GetAirlineFromFlight(string flightNumber)
         {
-            if (flights.TryGetValue(flightNumber, out string? airlineCode))
+            if (Flights.TryGetValue(flightNumber, out string? airlineCode))
             {
                 return Airlines.GetValueOrDefault(airlineCode);
             }
@@ -65,7 +65,7 @@ namespace Assignment2
         {
             return $"Terminal {TerminalName}\n" +
                    $"Airlines: {Airlines.Count}\n" +
-                   $"Flights: {flights.Count}\n" +
+                   $"Flights: {Flights.Count}\n" +
                    $"Boarding Gates: {BoardingGates.Count}";
         }
     }   
