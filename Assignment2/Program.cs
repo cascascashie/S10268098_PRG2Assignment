@@ -2,10 +2,9 @@
 
 // BASIC FEATURES [50% INDIVIDUAL]
 
-// METHOD 1 - Load files (airlines and boarding gates) [CASANDRA] 
-
 using Assignment2;
 
+// METHOD 1 - Load files (airlines and boarding gates) [CASANDRA] 
 void LoadAirlinesAndBoardingGates()
 {
     // LOADING AIRLINES
@@ -68,24 +67,29 @@ LoadAirlinesAndBoardingGates();
 void LoadFlights()
 {
     string[] flightsData = File.ReadAllLines("flights.csv");
+    Dictionary<string, Flight> flights = new Dictionary<string, Flight>();
+
     foreach (string data in flightsData)
     {
         if (data == flightsData[0])
         {
             continue;
         }
-        else
-        {
-            Console.WriteLine(data);
-            Console.WriteLine("");
-            string[] flightDetails = data.Split(",");
-        }
 
+        string[] flightDetails = data.Split(",");
+
+        Flight flight = new NORMFlight(
+            flightDetails[0],  // flight no.
+            flightDetails[2],  // origin
+            flightDetails[3],  // destination
+            DateTime.Parse(flightDetails[4]),  // expected time
+            flightDetails[5]   // status
+        );
+
+        flights.Add(flight.FlightNumber, flight);
     }
 
 }
-
-
 
 
 // METHOD 3 - List all flights with basic information [HNIN THAW]
@@ -98,7 +102,7 @@ void ListFlightDetails()
 
 
 
-    // METHOD 4 - List all boarding gates [CASANDRA] 
+// METHOD 4 - List all boarding gates [CASANDRA] 
 
 void ListBoardingGates()
 {
@@ -108,7 +112,7 @@ void ListBoardingGates()
 
 
 
-    // METHOD 5 - Assign a boarding gate to a flight [HNIN THAW]
+// METHOD 5 - Assign a boarding gate to a flight [HNIN THAW]
 
 void AssignBoardingGateToFlight()
 {
@@ -118,7 +122,7 @@ void AssignBoardingGateToFlight()
 
 
 
-    // METHOD 6 - Create a new flight [HNIN THAW]
+// METHOD 6 - Create a new flight [HNIN THAW]
 
 void CreateFlight()
 {
@@ -128,7 +132,7 @@ void CreateFlight()
 
 
 
-    // METHOD 7 - Display full flight details from an airline [CASANDRA] 
+// METHOD 7 - Display full flight details from an airline [CASANDRA] 
 
 void FullFlightDetail()
 {
@@ -138,7 +142,7 @@ void FullFlightDetail()
 
 
 
-    // METHOD 8 - Modify flight details [CASANDRA] 
+// METHOD 8 - Modify flight details [CASANDRA] 
 
 void ModifyFlightDetails()
 {
@@ -148,7 +152,7 @@ void ModifyFlightDetails()
 
 
 
-    // METHOD 9 - Display scheduled flights in chronological order, where boarding gates are applicable [HNIN THAW]
+// METHOD 9 - Display scheduled flights in chronological order, where boarding gates are applicable [HNIN THAW]
 
 void DisplayFlights()
 {
@@ -159,54 +163,54 @@ void DisplayFlights()
 
 
 
-    // ADVANCED FEATURES [20% INDIVIDUAL]
+// ADVANCED FEATURES [20% INDIVIDUAL]
 
-    // METHOD (a) - Process all unassigned flights to boarding gates in bulk
+// METHOD (a) - Process all unassigned flights to boarding gates in bulk
 
-    void ProcessUnassignedFlights()
-    {
-        // CAN ADJUST TO HOWEVER YOU WANT 
-    }
-
-
-
-
-    // METHOD (b) - Display the total fee per airline for the day
-
-    void DisplayTotalFee()
-    {
-        // CAN ADJUST TO HOWEVER YOU WANT 
-    }
+void ProcessUnassignedFlights()
+{
+    // CAN ADJUST TO HOWEVER YOU WANT 
+}
 
 
 
 
-    // OTHER METHODS
+// METHOD (b) - Display the total fee per airline for the day
 
-    // MAIN MENU METHOD 
-
-    void MainMenu()
-    {
-        Console.WriteLine("=============================================");
-        Console.WriteLine("Welcome to Changi Airport Terminal 5");
-        Console.WriteLine("=============================================");
-        Console.WriteLine("1. List All Flights");
-        Console.WriteLine("2. List Boarding Gates");
-        Console.WriteLine("3. Assign a Boarding Gate to a Flight");
-        Console.WriteLine("4. Create Flight");
-        Console.WriteLine("5. Display Airline Flights");
-        Console.WriteLine("6. Modify Flight Details");
-        Console.WriteLine("7. Display Flight Schedule");
-        Console.WriteLine("0. Exit");
-        Console.WriteLine("Please select your option: ");
-    }
+void DisplayTotalFee()
+{
+    // CAN ADJUST TO HOWEVER YOU WANT 
+}
 
 
 
 
+// OTHER METHODS
 
-    // MAIN LOOP 
+// MAIN MENU METHOD 
 
-    // NOTE FOR FUTURE REFERENCE : 
-    // WHEN LOADING THE FILES, NEED TO PUT "FINISHED LOADING AND DISPLAY QUANTITY OF THINGS LOADED, THEN HAVE A GAP
-    // BEFORE THE MAIN MENU 
+void MainMenu()
+{
+    Console.WriteLine("=============================================");
+    Console.WriteLine("Welcome to Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+    Console.WriteLine("1. List All Flights");
+    Console.WriteLine("2. List Boarding Gates");
+    Console.WriteLine("3. Assign a Boarding Gate to a Flight");
+    Console.WriteLine("4. Create Flight");
+    Console.WriteLine("5. Display Airline Flights");
+    Console.WriteLine("6. Modify Flight Details");
+    Console.WriteLine("7. Display Flight Schedule");
+    Console.WriteLine("0. Exit");
+    Console.WriteLine("Please select your option: ");
+}
+
+
+
+
+// MAIN LOOP 
+
+// NOTE FOR FUTURE REFERENCE : 
+// WHEN LOADING THE FILES, NEED TO PUT "FINISHED LOADING AND DISPLAY QUANTITY OF THINGS LOADED, THEN HAVE A GAP
+// BEFORE THE MAIN MENU 
+
