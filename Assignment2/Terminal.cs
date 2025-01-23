@@ -14,7 +14,7 @@ namespace Assignment2
 {
     class Terminal
     {
-        public string TerminalName { get; private set; }
+        public string TerminalName { get; set; }
         public Dictionary<string, Airline> Airlines { get; set; }
         public Dictionary<string, Flight> Flights { get; set; }
         public Dictionary<string, BoardingGate> BoardingGates { get; set; }
@@ -30,7 +30,7 @@ namespace Assignment2
         }
         public bool AddAirline(Airline airline)
         {
-            if (!Airlines.ContainsKey(airline.Code))
+            if (Airlines.ContainsKey(airline.Code))
             {
                 Airlines[airline.Code] = airline;
                 return true;
@@ -46,22 +46,22 @@ namespace Assignment2
             }
             return false;
         }
-        
-        public Airline? GetAirlineFromFlight(string flightNumber)
+
+        public Airline? GetAirlineFromFlight(Flight flight)
         {
-            if (Flights.TryGetValue(flightNumber, out Flight? flight))
+            foreach (Airline airline in Airlines.Values)
             {
-                return Airlines.GetValueOrDefault();
+                if (airline.Flights.ContainsKey(flight.FlightNumber))
+                {
+                    return airline;
+                }
             }
             return null;
-
-
-
         }
 
         public void PrintAirlineFees()
         {
-            foreach (var airline in Airlines.Values)
+            foreach (Airline airline in Airlines.Values)
             {
                 double fees = airline.CalculateFees();
                 Console.WriteLine($"{airline.Name} Total Fees: ${fees:N2}");
