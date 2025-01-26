@@ -226,7 +226,85 @@ void FullFlightDetail()
 
 void ModifyFlightDetails()
 {
-    // CAN ADJUST TO HOWEVER YOU WANT 
+    // TITLE
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Airlines for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+
+    // HEADER
+    Console.WriteLine($"{"Airline Code",-16}{"Airline Name",-18}");
+
+    // INFO ABOUT THE AIRLINES 
+    foreach (Airline AirlineInfo in AirlineDict.Values)
+    {
+        Console.WriteLine($"{AirlineInfo.Code,-16}{AirlineInfo.Name,-18}");
+    }
+
+    Console.WriteLine("Enter Airline Code: ");
+    string chosen_code = Console.ReadLine();
+
+    // VARIABLE FOR THE CHOSEN AIRLINE
+    Airline chosen_airline = null;
+
+    foreach (Airline airline in AirlineDict.Values)
+    {
+        if (airline.Code == chosen_code)
+        {
+            chosen_airline = airline;
+        }
+    }
+
+    Console.WriteLine($"List of Flights for {chosen_airline.Name}");
+
+    // HEADER
+    Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time",-35}");
+
+    // FLIGHT DETAILS. NEED TO FIX SO THAT AIRLINE DICTIONARY CONTAINS THE SPECIFIC FLIGHTS FOR EACH AIRLINE !!!! NEED FIX 
+    foreach (Flight flight in FlightDict.Values)
+    {
+        Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime,-35}");
+    }
+
+    // LETTING USER CHOOSE THE FLIGHT TO CHANGE
+    Console.WriteLine("Choose an existing Flight to modify or delete: ");
+    string chosen_flight = Console.ReadLine();
+
+    // OPTIONS AFTER PICKING THE FLIGHT
+    void OptionsAfterPickingFlight()
+    {
+        Console.WriteLine("1. Modify Flight");
+        Console.WriteLine("2. Delete Flight");
+        Console.WriteLine("Choose an option:");
+    }
+
+    // OPTION 1, MODIFYING THE FLIGHT 
+    void ModifyingFlight()
+    {
+        Console.WriteLine("1. Modify Basic Information");
+        Console.WriteLine("2. Modify Status");
+        Console.WriteLine("3. Modify Special Request Code");
+        Console.WriteLine("4. Modify Boarding Gate");
+        Console.WriteLine("Choose an option: ");
+    }
+
+    // -> OPT 1
+    void ChangingFlightDetails()
+    {
+        Console.Write("Enter new Origin: ");
+        string new_origin = Console.ReadLine();
+
+        Console.Write("Enter new Destination: ");
+        string new_destination = Console.ReadLine();
+
+        Console.Write("Enter new Expected Departure/Arrival Time (dd/mm/yyyy hh:mm): ");
+        DateTime new_time = Convert.ToDateTime(Console.ReadLine());
+
+        Console.WriteLine("Flight updated!");
+
+    }
+
+
+
 }
 
 
@@ -318,7 +396,7 @@ while (true)
         break;
     }*/
 
-    FullFlightDetail();
+    FullFlightDetail(); // debugging 
 
     
 
