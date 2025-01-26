@@ -233,10 +233,40 @@ void MainMenu()
 
 
 
-    // MAIN LOOP 
+// MAIN LOOP 
 
-    // NOTE FOR FUTURE REFERENCE : 
-    // WHEN LOADING THE FILES, NEED TO PUT "FINISHED LOADING AND DISPLAY QUANTITY OF THINGS LOADED, THEN HAVE A GAP
-    // BEFORE THE MAIN MENU 
+// NOTE FOR FUTURE REFERENCE : 
+// WHEN LOADING THE FILES, NEED TO PUT "FINISHED LOADING AND DISPLAY QUANTITY OF THINGS LOADED, THEN HAVE A GAP
+// BEFORE THE MAIN MENU 
+
+
+// LOADING EVERYTHING, ONLY SHOWS UP ONCE
+LoadAirlinesAndBoardingGates();
+LoadFlights();
+
+// THE BLANK SPACE 
+Console.WriteLine();
+Console.WriteLine();
+Console.WriteLine();
+Console.WriteLine();
+
+while (true)
+{
+
+    MainMenu();
+    Console.WriteLine("Please select your option:"); // correct that it is writeLINE
+    int user_option = Convert.ToInt32( Console.ReadLine() );
+
+    if (user_option == 0)
+    {
+        Console.WriteLine("Goodbye!");
+        break;
+    }
+
+  
+
+       
+
+}
 
 
