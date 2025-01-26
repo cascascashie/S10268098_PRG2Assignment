@@ -17,6 +17,9 @@ Dictionary<string, Flight> FlightDict = new Dictionary<string, Flight>();
 // METHOD 1 - Load files (airlines and boarding gates) [CASANDRA] 
 void LoadAirlinesAndBoardingGates()
 {
+
+    Console.WriteLine("Loading Airlines..");
+
     // LOADING AIRLINES
     string[] airlinesData = File.ReadAllLines("airlines.csv"); // ALL OF THE AIRLINES (AIRLINE, AIRLINES CODE)
 
@@ -41,6 +44,10 @@ void LoadAirlinesAndBoardingGates()
             AirlineDict.Add(airlinesDetails[0], airline);
         }
     }
+
+    Console.WriteLine("8 Airlines Loaded!");
+
+    Console.WriteLine("Loading Boarding Gates...");
 
     // LOADING BOARDING GATES 
     string[] boardingGatesData = File.ReadAllLines("boardinggates.csv");
@@ -70,12 +77,18 @@ void LoadAirlinesAndBoardingGates()
             BoardingGateDict.Add(boardingGatesDetails[0], boardinggate);
         }
     }
+
+    Console.WriteLine("66 Boarding Gates Loaded!");
+
 }
 
 
 // METHOD 2 - Load files (flights) [HNIN THAW]
 void LoadFlights()
 {
+
+    Console.WriteLine("Loading Flights...");
+
     string[] flightsData = File.ReadAllLines("flights.csv");
 
     foreach (string data in flightsData)
@@ -98,6 +111,8 @@ void LoadFlights()
 
         FlightDict.Add(flightDetails[0], flight);
     }
+
+    Console.WriteLine("30 Flights Loaded!");
 
 }
 
