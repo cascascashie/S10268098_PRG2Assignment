@@ -34,9 +34,10 @@ void LoadAirlinesAndBoardingGates()
             // NOTE 
             // DATA [0] REPRESENTS THE AIRLINES NAME
             // DATA [1] REPRESENTS THE AIRLINES CODE 
-
+            
             // MAKING THE NEW AIRLINES OBJECTS 
             Airline airline = new Airline(airlinesDetails[0], airlinesDetails[1]);
+
             AirlineDict.Add(airlinesDetails[0], airline);
         }
     }
@@ -71,13 +72,11 @@ void LoadAirlinesAndBoardingGates()
     }
 }
 
-LoadAirlinesAndBoardingGates();
 
 // METHOD 2 - Load files (flights) [HNIN THAW]
 void LoadFlights()
 {
     string[] flightsData = File.ReadAllLines("flights.csv");
-    Dictionary<string, Flight> flights = new Dictionary<string, Flight>();
 
     foreach (string data in flightsData)
     {
@@ -90,19 +89,17 @@ void LoadFlights()
 
         Flight flight = new NORMFlight(
             flightDetails[0],  // flight no.
-            flightDetails[2],  // origin
-            flightDetails[3],  // destination
-            DateTime.Parse(flightDetails[4]),  // expected time
-            flightDetails[5]   // status
+            flightDetails[1],  // origin
+            flightDetails[2],  // destination
+            DateTime.Parse(flightDetails[3]),  // expected time
+            flightDetails[4]   // status
         );
+        Console.WriteLine(flight.ToString());
 
-        //flights.Add(flight.FlightNumber, flight);
         FlightDict.Add(flightDetails[0], flight);
     }
 
 }
-
-
 
 
     // METHOD 3 - List all flights with basic information [HNIN THAW]

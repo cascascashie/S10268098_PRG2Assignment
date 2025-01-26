@@ -31,7 +31,7 @@ namespace Assignment2
         // METHOD 
         public override double CalculateFees() // YET TO DO, MUST DO THE QN 
         {
-            double fee = 0; // ddjb fee
+            double fee = 0; 
             double arrivefee = 500;
             double departfee = 800;
             double boardgatebasefee = 300;

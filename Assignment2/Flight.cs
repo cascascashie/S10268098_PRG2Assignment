@@ -31,7 +31,23 @@ namespace Assignment2
             Status = status;
         }
 
-        public abstract double CalculateFees(); // TO BE INHERITED BY ALL THE CHILD CLASSES 
+        public virtual double CalculateFees()
+        {
+            double fee = 0; 
+            double arrivefee = 500;
+            double departfee = 800;
+            double boardgatebasefee = 300;
+
+            if (Origin != "Singapore(SIN)") // IF ORIGIN IS NOT SINGAPORE, MEANS COMES FROM OTHER COUNTRIES/COMING TO SINGAPORE)
+            {
+                fee = fee + arrivefee;
+            }
+            else // DEPARTING FROM SINGPORE 
+            {
+                fee = fee + departfee + boardgatebasefee;
+            }
+            return fee;
+        }
 
         public override string ToString() // NEED TO CHECK THE SAMPLE IF CORRECT
         {
