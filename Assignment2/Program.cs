@@ -107,7 +107,6 @@ void LoadFlights()
             DateTime.Parse(flightDetails[3]),  // expected time
             flightDetails[4]   // status
         );
-        Console.WriteLine(flight.ToString());
 
         FlightDict.Add(flightDetails[0], flight);
     }
@@ -117,7 +116,7 @@ void LoadFlights()
 }
 
 
-    // METHOD 3 - List all flights with basic information [HNIN THAW]
+// METHOD 3 - List all flights with basic information [HNIN THAW]
 
 void ListFlightDetails()
 {
@@ -131,7 +130,19 @@ void ListFlightDetails()
 
 void ListBoardingGates()
 {
-    // CAN ADJUST TO HOWEVER YOU WANT 
+    // TITLE
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+
+    // HEADER 
+    Console.WriteLine($"{"Gate Name",-16}{"DDJB",-23}{"CFFT",-23}{"LWTT",-6}");
+
+    // LISTING THE ACTUAL BOARDING GATES INFORMATION 
+    foreach (BoardingGate BoardingGateInfo in BoardingGateDict.Values)
+    {
+        Console.WriteLine($"{BoardingGateInfo.GateName,-16}{BoardingGateInfo.SupportsDDJB,-23}{BoardingGateInfo.SupportsCFFT,-23}{BoardingGateInfo.SupportsLWTT,-6}");
+    }
 }
 
 
@@ -227,7 +238,7 @@ void MainMenu()
     Console.WriteLine("6. Modify Flight Details");
     Console.WriteLine("7. Display Flight Schedule");
     Console.WriteLine("0. Exit");
-    Console.WriteLine("Please select your option: ");
+    Console.WriteLine();
 }
 
 
@@ -263,9 +274,10 @@ while (true)
         break;
     }
 
-  
 
-       
+
+
+
 
 }
 
