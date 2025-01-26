@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Collections.Generic;
 using Assignment2;
 
 // DICTIONARY'S
@@ -143,6 +144,7 @@ void ListBoardingGates()
     {
         Console.WriteLine($"{BoardingGateInfo.GateName,-16}{BoardingGateInfo.SupportsDDJB,-23}{BoardingGateInfo.SupportsCFFT,-23}{BoardingGateInfo.SupportsLWTT,-6}");
     }
+
 }
 
 
@@ -172,7 +174,49 @@ void CreateFlight()
 
 void FullFlightDetail()
 {
-    // CAN ADJUST TO HOWEVER YOU WANT 
+    // TITLE
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Airlines for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+
+    // HEADER
+    Console.WriteLine($"{"Airline Code",-16}{"Airline Name",-18}");
+
+    // INFO ABOUT THE AIRLINES 
+    foreach (Airline AirlineInfo in AirlineDict.Values)
+    {
+        Console.WriteLine($"{AirlineInfo.Code,-16}{AirlineInfo.Name,-18}");
+    }
+
+    Console.Write("Enter Airline Code: ");
+    string chosen_code = Console.ReadLine();
+
+    // VARIABLE FOR THE CHOSEN AIRLINE
+    Airline chosen_airline = null;
+
+    foreach (Airline airline in AirlineDict.Values)
+    {
+        if (airline.Code == chosen_code)
+        {
+            chosen_airline = airline;
+        }
+    }
+
+    // THE NAME ADJUSTS ACCORDING TO THE CHOSEN AIRLINE CODE 
+    Console.WriteLine("=============================================");
+    Console.WriteLine($"List of Flights for {chosen_airline.Name}");
+    Console.WriteLine("=============================================");
+
+    // HEADER
+    Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time",-35}");
+    
+    // FLIGHT DETAILS. NEED TO FIX SO THAT AIRLINE DICTIONARY CONTAINS THE SPECIFIC FLIGHTS FOR EACH AIRLINE !!!! NEED FIX 
+    foreach (Flight flight in FlightDict.Values)
+    {
+        Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime,-35}");
+    }
+
+
 }
 
 
@@ -266,15 +310,17 @@ while (true)
 
     MainMenu();
     Console.WriteLine("Please select your option:"); // correct that it is writeLINE
-    int user_option = Convert.ToInt32( Console.ReadLine() );
+    /*int user_option = Convert.ToInt32( Console.ReadLine() );
 
     if (user_option == 0)
     {
         Console.WriteLine("Goodbye!");
         break;
-    }
+    }*/
 
+    FullFlightDetail();
 
+    
 
 
 
