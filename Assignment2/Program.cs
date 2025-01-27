@@ -285,7 +285,9 @@ void ModifyFlightDetails()
     // HEADER 
     Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time"}");
 
-    // FLIGHT DETAILS. NEED TO FIX SO THAT AIRLINE DICTIONARY CONTAINS THE SPECIFIC FLIGHTS FOR EACH AIRLINE !!!! NEED FIX 
+    // FLIGHT DETAILS
+
+
     foreach (Airline airline in AirlineDict.Values)
     {
         if (airline.Name == chosen_airline.Name)
@@ -303,13 +305,17 @@ void ModifyFlightDetails()
     Console.WriteLine("Choose an existing Flight to modify or delete: ");
     string chosen_flight = Console.ReadLine();
 
+    
     // OPTIONS AFTER PICKING THE FLIGHT
     void OptionsAfterPickingFlight()
     {
         Console.WriteLine("1. Modify Flight");
         Console.WriteLine("2. Delete Flight");
-        Console.WriteLine("Choose an option:");
     }
+
+    OptionsAfterPickingFlight();
+    Console.WriteLine("Choose an option:");
+    int user_option = Convert.ToInt32(Console.ReadLine());
 
     // OPTION 1, MODIFYING THE FLIGHT 
     void ModifyingFlight()
@@ -324,6 +330,10 @@ void ModifyFlightDetails()
     // -> OPT 1
     void ChangingFlightDetails()
     {
+        foreach (Flight flight in chosen_airline.Flights.Values)
+        {
+            
+        }
         Console.Write("Enter new Origin: ");
         string new_origin = Console.ReadLine();
 
@@ -431,8 +441,7 @@ while (true)
         break;
     }*/
 
-    FullFlightDetail(); // debugging 
-    break;
+    ModifyFlightDetails();
 
 
 
