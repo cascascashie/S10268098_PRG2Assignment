@@ -225,13 +225,21 @@ void FullFlightDetail()
     Console.WriteLine($"List of Flights for {chosen_airline.Name}");
     Console.WriteLine("=============================================");
 
-    // HEADER
-    Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time",-35}");
-    
+    // HEADER 
+    Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time"}");
+
     // FLIGHT DETAILS. NEED TO FIX SO THAT AIRLINE DICTIONARY CONTAINS THE SPECIFIC FLIGHTS FOR EACH AIRLINE !!!! NEED FIX 
-    foreach (Flight flight in FlightDict.Values)
+    foreach (Airline airline in AirlineDict.Values)
     {
-        Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime,-35}");
+        if (airline.Name == chosen_airline.Name)
+        {
+            foreach (Flight flight in airline.Flights.Values)
+            {
+                Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime}");
+            }
+
+        }
+        else { continue; }
     }
 
 
@@ -274,17 +282,21 @@ void ModifyFlightDetails()
 
     Console.WriteLine($"List of Flights for {chosen_airline.Name}");
 
-    // HEADER
-    Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time",-35}");
+    // HEADER 
+    Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time"}");
 
     // FLIGHT DETAILS. NEED TO FIX SO THAT AIRLINE DICTIONARY CONTAINS THE SPECIFIC FLIGHTS FOR EACH AIRLINE !!!! NEED FIX 
     foreach (Airline airline in AirlineDict.Values)
     {
-        if (airline.Name = chosen_airline)
+        if (airline.Name == chosen_airline.Name)
         {
-            Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime,-35}");
+            foreach (Flight flight in airline.Flights.Values)
+            {
+                Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime}");
+            }
+
         }
-        Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime,-35}");
+        else { continue; }
     }
 
     // LETTING USER CHOOSE THE FLIGHT TO CHANGE
@@ -420,8 +432,7 @@ while (true)
     }*/
 
     FullFlightDetail(); // debugging 
-
-    
+    break;
 
 
 
