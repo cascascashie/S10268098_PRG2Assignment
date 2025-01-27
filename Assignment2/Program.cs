@@ -19,7 +19,7 @@ Dictionary<string, Flight> FlightDict = new Dictionary<string, Flight>();
 void LoadAirlinesAndBoardingGates()
 {
 
-    Console.WriteLine("Loading Airlines..");
+    Console.WriteLine("Loading Airlines...");
 
     // LOADING AIRLINES
     string[] airlinesData = File.ReadAllLines("airlines.csv"); // ALL OF THE AIRLINES (AIRLINE, AIRLINES CODE)
@@ -46,7 +46,7 @@ void LoadAirlinesAndBoardingGates()
         }
     }
 
-    Console.WriteLine("8 Airlines Loaded!");
+    Console.WriteLine($"{AirlineDict.Count()} Airlines Loaded!");
 
     Console.WriteLine("Loading Boarding Gates...");
 
@@ -79,7 +79,7 @@ void LoadAirlinesAndBoardingGates()
         }
     }
 
-    Console.WriteLine("66 Boarding Gates Loaded!");
+    Console.WriteLine($"{BoardingGateDict.Count()} Boarding Gates Loaded!");
 
 }
 
@@ -110,9 +110,27 @@ void LoadFlights()
         );
 
         FlightDict.Add(flightDetails[0], flight);
+
+        // Obtaining the airline code from the flight 
+        string[] flight_code = flightDetails[0].Split(" ");
+
+        // flight_code[0] is the code 
+        // flight_code[1] is the number
+
+        foreach (Airline airline in AirlineDict.Values)
+        {
+            if (flight_code[0] == airline.Code)
+            {
+                airline.Flights.Add(flightDetails[0], flight);
+            }
+            else
+            {
+                continue;
+            }
+        }
     }
 
-    Console.WriteLine("30 Flights Loaded!");
+    Console.WriteLine($"{FlightDict.Count()} Flights Loaded!");
 
 }
 
@@ -260,8 +278,12 @@ void ModifyFlightDetails()
     Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time",-35}");
 
     // FLIGHT DETAILS. NEED TO FIX SO THAT AIRLINE DICTIONARY CONTAINS THE SPECIFIC FLIGHTS FOR EACH AIRLINE !!!! NEED FIX 
-    foreach (Flight flight in FlightDict.Values)
+    foreach (Airline airline in AirlineDict.Values)
     {
+        if (airline.Name = chosen_airline)
+        {
+            Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime,-35}");
+        }
         Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime,-35}");
     }
 
