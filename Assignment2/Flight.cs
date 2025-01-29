@@ -18,7 +18,7 @@ namespace Assignment2
         public string Origin { get; set; }
         public string Destination { get; set; }
         public DateTime ExpectedTime { get; set; }
-        public String Status { get; set; }
+        public string Status { get; set; }
 
         public Flight() { }
 

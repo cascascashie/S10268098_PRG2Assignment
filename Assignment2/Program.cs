@@ -106,7 +106,7 @@ void LoadFlights()
             flightDetails[1],  // origin
             flightDetails[2],  // destination
             DateTime.Parse(flightDetails[3]),  // expected time
-            flightDetails[4]   // status
+            flightDetails[4]   // status, scheduled etc 
         );
 
         FlightDict.Add(flightDetails[0], flight);
@@ -287,11 +287,14 @@ void ModifyFlightDetails()
 
     // FLIGHT DETAILS
 
+    // obtaining the specific airline object
+    Airline specific_airline = null;
 
     foreach (Airline airline in AirlineDict.Values)
     {
         if (airline.Name == chosen_airline.Name)
         {
+            specific_airline = airline; // obtaining the chosen airline object 
             foreach (Flight flight in airline.Flights.Values)
             {
                 Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime}");
@@ -305,13 +308,25 @@ void ModifyFlightDetails()
     Console.WriteLine("Choose an existing Flight to modify or delete: ");
     string chosen_flight = Console.ReadLine();
 
-    
+    // need to obtain the specific flight object 
+    Flight chosen_flight_number = null;
+    foreach (Flight flight_object in specific_airline.Flights.Values)
+    {
+        if (flight_object.FlightNumber == chosen_flight)
+        {
+            chosen_flight_number = flight_object;
+        }
+    }
+
+
     // OPTIONS AFTER PICKING THE FLIGHT
     void OptionsAfterPickingFlight()
     {
         Console.WriteLine("1. Modify Flight");
         Console.WriteLine("2. Delete Flight");
     }
+
+    // Console.WriteLine(chosen_flight_number.ToString()); DEBUG, TO SEE IF CAN OBTAIN THE FLIGHT OBJECT 
 
     OptionsAfterPickingFlight();
     Console.WriteLine("Choose an option:");
@@ -324,31 +339,89 @@ void ModifyFlightDetails()
         Console.WriteLine("2. Modify Status");
         Console.WriteLine("3. Modify Special Request Code");
         Console.WriteLine("4. Modify Boarding Gate");
-        Console.WriteLine("Choose an option: ");
     }
+
+    //ModifyingFlight(); // TO TEST ONLY
 
     // -> OPT 1
     void ChangingFlightDetails()
     {
-        foreach (Flight flight in chosen_airline.Flights.Values)
-        {
-            
-        }
         Console.Write("Enter new Origin: ");
         string new_origin = Console.ReadLine();
+        chosen_flight_number.Origin = new_origin;
 
         Console.Write("Enter new Destination: ");
         string new_destination = Console.ReadLine();
+        chosen_flight_number.Destination = new_destination;
+
 
         Console.Write("Enter new Expected Departure/Arrival Time (dd/mm/yyyy hh:mm): ");
         DateTime new_time = Convert.ToDateTime(Console.ReadLine());
+        chosen_flight_number.ExpectedTime = new_time;
 
         Console.WriteLine("Flight updated!");
 
+        Console.WriteLine($"Flight Number: {chosen_flight_number.FlightNumber}");
+        Console.WriteLine($"Airline Name: {specific_airline.Name}");
+        Console.WriteLine($"Origin: {chosen_flight_number.Origin}");
+        Console.WriteLine($"Destination: {chosen_flight_number.Destination}");
+        Console.WriteLine($"Expected Departure/Arrival Time: {chosen_flight_number.ExpectedTime}");
+        Console.WriteLine($"Status: {chosen_flight_number.Status}");
+        //Console.WriteLine($"Special Request Code: {chosen_flight_number.}"); NEED TO OBTAIN SPECIAL REQUEST CODE
+        //Console.WriteLine($"Boarding Gate: {chosen_flight_number.}"); NEED TO OBTAIN BOARDING GATE 
     }
 
+    //ChangingFlightDetails(); // TESTING ONLY
+
+    // OPTION 2, DELETING A FLIGHT 
+    void DeletingAFlight()
+    {
+        Console.WriteLine($"Are you sure you want to delete {chosen_flight_number.FlightNumber}? [Y/N]: ");
+        string user_confirmation = Console.ReadLine(); // EITHER YES OR NO
+
+        // IF YES, NEED TO REMOVE FLIGHT FROM THE DICTIONARY
+        // IF NO, GET OUT OF THIS FUNCTION LOOP 
+    }
+
+    //DeletingAFlight(); // TESTING ONLY
+
+    // LETTING USER PICK EITHER TO MODIFY OR TO DELETE
+    if (user_option == 1)
+    {
+        ModifyingFlight();
+        Console.WriteLine("Choose an option: ");
+        int next_user_option = Convert.ToInt32(Console.ReadLine());
+
+        // OPTION 1
+        if (next_user_option == 1)
+        {
+            ChangingFlightDetails();
+        }
+        // OPTION 2
+        else if (next_user_option == 2)
+        { }
+
+        // OPTION 3
+        else if (next_user_option == 3)
+        {
+
+        }
+        // OPTION 4
+        else if (next_user_option == 4)
+        {
+
+        }
+        else
+        {
+            Console.WriteLine("Invalid option!");
+        }
 
 
+    }
+    else if (user_option==2)
+    {
+        DeletingAFlight();
+    }
 }
 
 
@@ -441,11 +514,15 @@ while (true)
         break;
     }*/
 
-    ModifyFlightDetails();
+    
 
 
-
-
+    Console.WriteLine();
+    Console.WriteLine();
+    Console.WriteLine();
+    Console.WriteLine();
+    break;
 }
+ModifyFlightDetails();
 
 
