@@ -463,33 +463,28 @@ void DisplayTotalFee()
 
 // OTHER METHODS
 
-// MAIN MENU METHOD 
 
+
+
+// MAIN MENU METHOD 
 void MainMenu()
 {
     Console.WriteLine("=============================================");
     Console.WriteLine("Welcome to Changi Airport Terminal 5");
     Console.WriteLine("=============================================");
-    Console.WriteLine("1. List All Flights");
-    Console.WriteLine("2. List Boarding Gates");
-    Console.WriteLine("3. Assign a Boarding Gate to a Flight");
-    Console.WriteLine("4. Create Flight");
-    Console.WriteLine("5. Display Airline Flights");
-    Console.WriteLine("6. Modify Flight Details");
-    Console.WriteLine("7. Display Flight Schedule");
+    Console.WriteLine("1. List All Flights"); // HT
+    Console.WriteLine("2. List Boarding Gates"); // CAS
+    Console.WriteLine("3. Assign a Boarding Gate to a Flight"); // HT 
+    Console.WriteLine("4. Create Flight"); // HT 
+    Console.WriteLine("5. Display Airline Flights"); // CAS
+    Console.WriteLine("6. Modify Flight Details"); // CAS 
+    Console.WriteLine("7. Display Flight Schedule"); // HT
     Console.WriteLine("0. Exit");
     Console.WriteLine();
 }
 
 
-
-
 // MAIN LOOP 
-
-// NOTE FOR FUTURE REFERENCE : 
-// WHEN LOADING THE FILES, NEED TO PUT "FINISHED LOADING AND DISPLAY QUANTITY OF THINGS LOADED, THEN HAVE A GAP
-// BEFORE THE MAIN MENU 
-
 
 // LOADING EVERYTHING, ONLY SHOWS UP ONCE
 LoadAirlinesAndBoardingGates();
@@ -506,23 +501,46 @@ while (true)
 
     MainMenu();
     Console.WriteLine("Please select your option:"); // correct that it is writeLINE
-    /*int user_option = Convert.ToInt32( Console.ReadLine() );
+    int user_option = Convert.ToInt32( Console.ReadLine() );
 
     if (user_option == 0)
     {
         Console.WriteLine("Goodbye!");
         break;
-    }*/
-
-    
-
-
+    }
+    else if (user_option == 1)
+    {
+        // HT'S FUNCTION
+    }
+    else if (user_option == 2)
+    {
+        ListBoardingGates();
+    }
+    else if (user_option == 3)
+    {
+        // HT'S FUNCTION
+    }
+    else if (user_option == 4)
+    {
+        // HT'S FUNCTION
+    }
+    else if (user_option == 5)
+    {
+        FullFlightDetail();    
+    }
+    else if (user_option == 6)
+    {
+        ModifyFlightDetails();
+    }
+    else if (user_option == 7)
+    {
+        // HT'S FUNCTION
+    }
     Console.WriteLine();
     Console.WriteLine();
     Console.WriteLine();
     Console.WriteLine();
-    break;
 }
-ModifyFlightDetails();
+
 
 
