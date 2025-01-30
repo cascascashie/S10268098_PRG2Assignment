@@ -46,6 +46,8 @@ namespace Assignment2
                 fee = fee + departfee + boardgatebasefee;
             }
             return fee;
+
+
         }
 
         public override string ToString()
