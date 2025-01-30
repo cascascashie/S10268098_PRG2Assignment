@@ -379,16 +379,27 @@ void ModifyFlightDetails()
         // SPECIAL CODE 
         if (chosen_flight_number.GetType() != typeof(NORMFlight))
         {
-            Console.WriteLine($"Special Request Code: {chosen_flight_number.GetType}");
+            Console.WriteLine($"Special Request Code: {chosen_flight_number.GetType()}");
         }
         else
         {
             Console.WriteLine($"Special Request Code: Unassigned");
         }
 
-        Console.WriteLine("Boarding Gate: Unassigned" +
-            "");
-        //Console.WriteLine($"Boarding Gate: {chosen_flight_number.}"); NEED TO OBTAIN BOARDING GATE 
+        foreach (BoardingGate bg in BoardingGateDict.Values)
+        {
+            if (bg.Flight == chosen_flight_number)
+            {
+                Console.WriteLine($"Boarding Gate: {bg.GateName}");
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+        Console.WriteLine("Boarding Gate: Unassigned");
+
     }
 
     // OPTION 1, MODIFYING THE FLIGHT 
@@ -480,25 +491,25 @@ void ModifyFlightDetails()
     }
 
     // -> OPT 4
-    void ModifyBoardingGate()
+    BoardingGate ModifyBoardingGate() // NEED TO MODIFY SO IT CHECKS IF THE LWTT DDJB SHIT MATCHES
     {
         Console.WriteLine("Enter new boarding gate: ");
         string new_gate = Console.ReadLine();
+        BoardingGate wanted_gate = null;
 
-        //string[] accepted_code = ["DDJB", "LWTT", "CFFT", "NORM"]; ADJUST ACCORDING TO BOARDING GATE
-        /*
-        foreach (string str in accepted_code)
+        foreach (BoardingGate boardgate in BoardingGateDict.Values)
         {
-            if (str == new_code)
+            if (new_gate == boardgate.GateName)
             {
-                //chosen_flight_number.Status = new_code; NEED TO CHANGE IT SO THAT IT ADJUSTS THE CODE NOT THE STATUS 
-                Console.WriteLine("Code changed!");
+                wanted_gate = boardgate;
+                wanted_gate.Flight = chosen_flight_number;
+                Console.WriteLine("Boarding Gate changed!");
             }
-            else
-            {
-                Console.WriteLine("Not a valid code.");
-            }
-        }*/
+        }
+
+        return wanted_gate;
+
+
     }
 
 
@@ -554,7 +565,8 @@ void ModifyFlightDetails()
         // OPTION 4
         else if (next_user_option == 4)
         {
-
+            ModifyBoardingGate();
+            DisplayFlightChanges();
         }
         else
         {
