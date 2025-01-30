@@ -443,7 +443,7 @@ void ModifyFlightDetails()
         }
     }
 
-    // -> OPT 3
+    // -> OPT 3 // NEED TO CHANGE THE OBJECT TYPE 
     void ModifySpecialRequestCode()
     {
         Console.WriteLine("Enter new request code: ");
@@ -455,7 +455,21 @@ void ModifyFlightDetails()
         {
             if (str == new_code)
             {
-                //chosen_flight_number.Status = new_code; NEED TO CHANGE IT SO THAT IT ADJUSTS THE CODE NOT THE STATUS 
+                // CHANGE THE OBJECT TYPE
+                if (new_code == "DDJB")
+                {
+                    chosen_flight_number = (DDJBFlight)chosen_flight_number;
+                }
+                else if (new_code=="LWTT")
+                {
+                    chosen_flight_number = (LWTTFlight)chosen_flight_number;
+
+                }
+                else if (new_code == "CFFT")
+                {
+                    chosen_flight_number = (CFFTFlight)chosen_flight_number;
+                }
+
                 Console.WriteLine("Code changed!");
             }
             else
@@ -526,12 +540,16 @@ void ModifyFlightDetails()
         }
         // OPTION 2
         else if (next_user_option == 2)
-        { }
+        { 
+            ModifyStatus();
+            DisplayFlightChanges();
+        }
 
         // OPTION 3
         else if (next_user_option == 3)
         {
-
+            ModifySpecialRequestCode();
+            DisplayFlightChanges();
         }
         // OPTION 4
         else if (next_user_option == 4)
@@ -653,6 +671,10 @@ while (true)
     else if (user_option == 7)
     {
         // HT'S FUNCTION
+    }
+    else
+    {
+        Console.WriteLine("Not a valid option!");
     }
     Console.WriteLine();
     Console.WriteLine();
