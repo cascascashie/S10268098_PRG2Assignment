@@ -593,7 +593,6 @@ void DisplayFlights()
 // ADVANCED FEATURES [20% INDIVIDUAL]
 
 // METHOD (a) - Process all unassigned flights to boarding gates in bulk
-// CAS 
 
 void ProcessUnassignedFlights() 
 {
@@ -602,6 +601,7 @@ void ProcessUnassignedFlights()
 
 
 // METHOD (b) - Display the total fee per airline for the day
+// CAS 
 
 void DisplayTotalFee()
 {
