@@ -613,15 +613,13 @@ void DisplayTotalFee()
 
     double total_fee = 0;
 
-    while (true)
-    {
         foreach (Flight flight in FlightDict.Values)
         {
             if (flight.BoardingGate == null) // CHECKING IF FLIGHT HAS A BOARDING GATE 
             {
                 Console.WriteLine("Not all flights have been assigned to a boarding gate.");
                 Console.WriteLine("Please ensure all flights are assigned to a boarding gate!");
-                break;
+                return;
             }
 
             else if (flight.BoardingGate != null) // FLIGHT HAS A BOARDING GATE , COMPUTING THE TOTAL
@@ -679,6 +677,7 @@ void DisplayTotalFee()
         // AFTER COMPUTING THE TOTAL, NEED TO COMPUTE THE DISCOUNTS ETC 
         foreach (Airline airline1 in AirlineDict.Values)
         {
+            double initial_amount = airline1.SubTotal;
             double count = 0; // COUNTING THE NUMBER OF FLIGHTS, for EACH airline 
             
             // DISCOUNT IF AN AIRLINE HAS OVER 5 FLIGHTS 
@@ -724,8 +723,11 @@ void DisplayTotalFee()
                 }
             }
 
+            // DISPLAYING THE AMOUNT
+
+            
         }
-    }
+
 }
 
 
