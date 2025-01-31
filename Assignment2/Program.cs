@@ -438,7 +438,7 @@ void ModifyFlightDetails()
         Console.WriteLine("Enter new status: ");
         string new_status = Console.ReadLine();
 
-        string[] accepted_status = ["Boarding", "Delayed", "On Time"];
+        string[] accepted_status = ["Boarding", "Delayed", "On Time", "Scheduled"];
 
         foreach (string str in accepted_status)
         {
@@ -605,7 +605,127 @@ void ProcessUnassignedFlights()
 
 void DisplayTotalFee()
 {
-    // CAN ADJUST TO HOWEVER YOU WANT 
+    // CHANGES ADDED TO CLASS :
+    // flight : new property - boardinggate 
+    // airline : new property - subtotal 
+
+    // checking if all flights have been assigned to a boarding gate 
+
+    double total_fee = 0;
+
+    while (true)
+    {
+        foreach (Flight flight in FlightDict.Values)
+        {
+            if (flight.BoardingGate == null) // CHECKING IF FLIGHT HAS A BOARDING GATE 
+            {
+                Console.WriteLine("Not all flights have been assigned to a boarding gate.");
+                Console.WriteLine("Please ensure all flights are assigned to a boarding gate!");
+                break;
+            }
+
+            else if (flight.BoardingGate != null) // FLIGHT HAS A BOARDING GATE , COMPUTING THE TOTAL
+            {
+                // CHECKING THE ORIGIN/DESTINATION
+                if (flight.Origin == "Singapore (SIN)") // CHECKING IF ORIGIN IS SINGAPORE 
+                {
+                    total_fee += 800;
+                }
+                else if (flight.Destination == "Singapore (SIN)") // CHECKING IF DESTINATION IS SINGAPORE 
+                {
+                    total_fee += 500;
+                }
+
+                // CHECKING THE SPECIAL CODE 
+
+                if (flight.GetType() == typeof(CFFTFlight))
+                {
+                    total_fee += 150;
+                }
+
+                else if (flight.GetType() == typeof(DDJBFlight))
+                {
+                    total_fee += 300;
+
+                }
+
+                else if (flight.GetType() == typeof(LWTTFlight))
+                {
+                    total_fee += 500;
+
+                }
+
+                // BOARDING GATE BASE FEE
+                total_fee += 300;
+
+                Airline chosen_airline = null; 
+
+                foreach (Airline airline in AirlineDict.Values) // checking which airline the flight is from 
+                {
+                    foreach (Flight flights in airline.Flights.Values) // checking every flight in the airline
+                    {
+                        if (flights.FlightNumber ==flight.FlightNumber) // checking if the flights are identical
+                        {
+                            chosen_airline = airline;
+                            chosen_airline.SubTotal += total_fee;
+                        }
+                    }
+                }
+            }
+        }
+
+        double total_discount = 0;
+
+        // AFTER COMPUTING THE TOTAL, NEED TO COMPUTE THE DISCOUNTS ETC 
+        foreach (Airline airline1 in AirlineDict.Values)
+        {
+            double count = 0; // COUNTING THE NUMBER OF FLIGHTS, for EACH airline 
+            
+            // DISCOUNT IF AN AIRLINE HAS OVER 5 FLIGHTS 
+            if (airline1.Flights.Count() > 5)
+            {
+                double discounted_price = airline1.SubTotal * 0.97;
+                double discount = airline1.SubTotal * 0.03;
+                airline1.SubTotal = discounted_price;
+
+                total_discount += discount;
+
+            }
+
+            foreach (Flight flights in airline1.Flights.Values) // checking every flight in the airline
+            {
+                count += 1; // adding count of flights
+
+                if (count == 3) // discount for every 3 flights 
+                {
+                    airline1.SubTotal -= 700;
+                    total_discount += 700;
+                    count = 0; // count reset back to 0 
+                }
+
+                // checking if time is before 11am or after 9pm
+                if (flights.ExpectedTime.TimeOfDay < new TimeSpan(11, 0, 0) || flights.ExpectedTime.TimeOfDay > new TimeSpan(21, 0, 0))
+                {
+                    airline1.SubTotal -= 110;
+                    total_discount += 110;
+                }
+
+                if (flights.Origin == "Dubai (DXB)" || flights.Origin == "Bangkok (BKK)" || flights.Origin == "Tokyo (NRT)")
+                {
+                    airline1.SubTotal -= 25;
+                    total_discount += 25;
+
+                }
+
+                if (flights.GetType() == typeof(NORMFlight))
+                {
+                    airline1.SubTotal -= 50;
+                    total_discount += 50;
+                }
+            }
+
+        }
+    }
 }
 
 

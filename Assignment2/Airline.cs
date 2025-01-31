@@ -17,6 +17,7 @@ namespace Assignment2
         public string Name { get; private set; }
         public string Code { get; private set; }
         public Dictionary<string, Flight> Flights { get; set; }
+        public double SubTotal { get; set; } // ADDED FOR THE ADVANCED METHOD, DO NOT USE FOR BASIC METHODS!
         public Airline(string name, string code)
         {
             Name = name;

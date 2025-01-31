@@ -20,6 +20,8 @@ namespace Assignment2
         public DateTime ExpectedTime { get; set; }
         public string Status { get; set; }
 
+        public BoardingGate BoardingGate { get; set; } // ADDED FOR THE ADVANCED METHOD, DO NOT USE FOR BASIC METHODS!
+
         public Flight() { }
 
         public Flight(string flightNumber, string origin, string destination, DateTime expectedTime, string status)
