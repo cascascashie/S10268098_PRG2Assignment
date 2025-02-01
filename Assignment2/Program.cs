@@ -703,7 +703,7 @@ void DisplayTotalFee()
 
         // if want to debug, comment out the first 'if' and ADD 'flight.BoardingGate = BoardingGateDict.Values.First();' IN FRONT OF THE NEXT 'IF'
 
-        if (flight.BoardingGate == null) // CHECKING IF FLIGHT HAS A BOARDING GATE 
+        /*if (flight.BoardingGate == null) // CHECKING IF FLIGHT HAS A BOARDING GATE 
         {
             Console.WriteLine();
             Console.WriteLine("Not all flights have been assigned to a boarding gate.");
@@ -711,7 +711,9 @@ void DisplayTotalFee()
             return;
         }
 
-        else if (flight.BoardingGate != null) // FLIGHT HAS A BOARDING GATE , COMPUTING THE TOTAL, NEED TO ACTUALLY ADD THE BOARDING GATES INTO THE FLIGHT PROPERTY!! HAS AN ELSE 
+        else*/
+        flight.BoardingGate = BoardingGateDict.Values.First();
+        if (flight.BoardingGate != null) // FLIGHT HAS A BOARDING GATE , COMPUTING THE TOTAL, NEED TO ACTUALLY ADD THE BOARDING GATES INTO THE FLIGHT PROPERTY!! HAS AN ELSE 
             {
                 // CHECKING THE ORIGIN/DESTINATION
                 if (flight.Origin == "Singapore (SIN)") // CHECKING IF ORIGIN IS SINGAPORE 
@@ -765,6 +767,7 @@ void DisplayTotalFee()
         // AFTER COMPUTING THE TOTAL, NEED TO COMPUTE THE DISCOUNTS ETC 
         foreach (Airline airline1 in AirlineDict.Values)
         {
+        total_discount = 0;
             double initial_amount = airline1.SubTotal;
             double count = 0; // COUNTING THE NUMBER OF FLIGHTS, for EACH airline 
             
@@ -811,18 +814,21 @@ void DisplayTotalFee()
                 }
             }
 
-        // DISPLAYING THE AMOUNT
-        double percentage_of_discount = total_discount / airline1.SubTotal * 100; // percentage of the discount
+        // DISPLAYING THE AMOUNT FOR EACH AIRLINE
+        double percentage_of_discount = total_discount / initial_amount * 100; // percentage of the discount
+
+        Console.WriteLine($"Airlines Total Fees");
+        Console.WriteLine("=============================================");
 
         Console.WriteLine("");
         Console.WriteLine($"{airline1.Name}'s Total Fees");
         Console.WriteLine("=============================================");
         Console.WriteLine($"Initial Amount : ${initial_amount}");
         Console.WriteLine($"Total Discount : ${total_discount}");
-        Console.WriteLine($"Percentage of Discount : {percentage_of_discount}%");
+        Console.WriteLine($"Percentage of Discount : {percentage_of_discount.ToString("F2")}%");
         Console.WriteLine($"Total Final Fees : ${airline1.SubTotal}");
         Console.WriteLine("");
-    }
+        }
 
 }
 
