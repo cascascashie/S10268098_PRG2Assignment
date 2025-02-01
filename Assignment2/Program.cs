@@ -477,6 +477,9 @@ void ModifyFlightDetails()
                 if (new_code == "DDJB")
                 {
                     chosen_flight_number = (DDJBFlight)chosen_flight_number;
+                    // create a nwe ddjb object
+
+                    DDJBFlight new_flight = new DDJBFlight(chosen_flight_number.FlightNumber, chosen_flight_number.Origin, chosen_flight_number.Destination, chosen_flight_number.ExpectedTime, 300.0);
                 }
                 else if (new_code=="LWTT")
                 {
