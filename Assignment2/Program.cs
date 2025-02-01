@@ -853,7 +853,85 @@ void ModifyFlightDetails()
 
 void DisplayFlights()
 {
-    // CAN ADJUST TO HOWEVER YOU WANT 
+    // header for flight schedule
+    string header = "Flight Schedule for Changi Airport Terminal 5";
+    string separator = new string('=', header.Length + 4);
+
+    Console.WriteLine(separator);
+    Console.WriteLine(header);
+    Console.WriteLine(separator);
+
+    // methods needed for following codes in feature 9
+    string GetAirlineName(string airlineCode)
+    {
+        Dictionary<string, string> airlineNames = new Dictionary<string, string>
+    {
+        {"SQ", "Singapore Airlines"},
+        {"QF", "Qantas Airways"},
+        {"EK", "Emirates"},
+        {"BA", "British Airways"},
+        {"TR", "AirAsia"},
+        {"JL", "Japan Airlines"}
+    };
+
+        return airlineNames.ContainsKey(airlineCode) ? airlineNames[airlineCode] : "Unknown Airline";
+    }
+
+    string GetBoardingGate(Flight flight)
+    {
+        // finds gate assigned to this flight in boarding gate data dict
+        foreach (BoardingGate gate in BoardingGateDict.Values)
+        {
+            if (gate.Flight != null && gate.Flight.FlightNumber == flight.FlightNumber)
+            {
+                return gate.GateName;
+            }
+        }
+        return "Unassigned";
+    }
+
+
+    // Print program info and current date
+    Console.WriteLine("PRG2 (IT, CSF, DS)");
+    Console.WriteLine($"Last Update: {DateTime.Now:dd/MM/yyyy}\n");
+    Console.WriteLine("Year 2024/25 Assignment");
+    Console.WriteLine("- 13 -\n");
+
+    // Get all flights and convert to list for sorting
+    var flights = FlightDict.Values.ToList();
+
+    // Sort flights by expected time
+    flights.Sort((a, b) => a.ExpectedTime.CompareTo(b.ExpectedTime));
+
+    // Print column headers
+    Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20} {4,-15}",
+        "Flight Number", "Airline Name", "Origin", "Destination", "Expected"));
+    Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20}",
+        "Time", "Status", "Boarding Gate", "", ""));
+
+    // Print each flight's details
+    foreach (Flight flight in flights)
+    {
+        // get airline name from flight number (first 2 letters)
+        string airlineCode = flight.FlightNumber.Substring(0, 2);
+        string airlineName = GetAirlineName(airlineCode);
+
+        // First line of flight info
+        Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20} {4:dd/M/yyyy}",
+            flight.FlightNumber,
+            airlineName,
+            flight.Origin,
+            flight.Destination,
+            flight.ExpectedTime));
+
+        // Second line of flight info
+        Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20}",
+            flight.ExpectedTime.ToString("h:mm:00 tt"),
+            flight.Status,
+            GetBoardingGate(flight)));
+
+        Console.WriteLine();
+    }
 }
 
 
