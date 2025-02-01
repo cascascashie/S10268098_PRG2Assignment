@@ -855,7 +855,7 @@ void DisplayFlights()
 {
     // header for flight schedule
     string header = "Flight Schedule for Changi Airport Terminal 5";
-    string separator = new string('=', header.Length + 4);
+    string separator = new string('=', header.Length + 6);
 
     Console.WriteLine(separator);
     Console.WriteLine(header);
@@ -954,9 +954,9 @@ void DisplayTotalFee()
     // flight : new property - boardinggate 
     // airline : new property - subtotal 
 
-    Console.WriteLine("=============================================");
+    Console.WriteLine("======================================================");
     Console.WriteLine("Total Fee per Airline for Changi Airport Terminal 5");
-    Console.WriteLine("=============================================");
+    Console.WriteLine("======================================================");
 
     // checking if all flights have been assigned to a boarding gate 
 
