@@ -111,7 +111,7 @@ void LoadFlights()
 
         // CHECKING IF NORMAL FLIGHT
         Flight flight = new NORMFlight();
-        if (flightDetails[4] == null)
+        if (flightDetails[4] == "" || flightDetails[4] == " ")
         {
             flight = new NORMFlight(
             flightDetails[0],  // flight no.
@@ -154,7 +154,7 @@ void LoadFlights()
             500 // request fee
             );
         }
-        
+
         FlightDict.Add(flightDetails[0], flight);
 
         // Obtaining the airline code from the flight 
@@ -269,7 +269,7 @@ void FullFlightDetail()
     // FLIGHT DETAILS. NEED TO FIX SO THAT AIRLINE DICTIONARY CONTAINS THE SPECIFIC FLIGHTS FOR EACH AIRLINE !!!! NEED FIX 
     foreach (Airline airline in AirlineDict.Values)
     {
-        if (airline.Name == chosen_airline.Name)
+        if (airline.Name == chosen_airline.Name && chosen_airline != null)
         {
             foreach (Flight flight in airline.Flights.Values)
             {
