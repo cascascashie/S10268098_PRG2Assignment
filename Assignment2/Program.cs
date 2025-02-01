@@ -376,6 +376,15 @@ void ModifyFlightDetails()
         Console.WriteLine($"Status: {chosen_flight_number.Status}");
 
         // SPECIAL CODE 
+
+        // need to obtain the updated code 
+        foreach (Flight flight in specific_airline.Flights.Values)
+        {
+            if (flight.FlightNumber == chosen_flight_number.FlightNumber)
+            {
+                chosen_flight_number = flight;
+            }
+        }
         if (chosen_flight_number.GetType() != typeof(NORMFlight))
         {
             string type_code = chosen_flight_number.GetType().ToString().Replace("Assignment2.", "");
@@ -430,7 +439,7 @@ void ModifyFlightDetails()
         chosen_flight_number.Destination = new_destination;
 
 
-        Console.Write("Enter new Expected Departure/Arrival Time (dd/mm/yyyy hh:mm:ss): ");
+        Console.Write("Enter new Expected Departure/Arrival Time (dd/mm/yyyy hh:mm): ");
         DateTime new_time = Convert.ToDateTime(Console.ReadLine());
         chosen_flight_number.ExpectedTime = new_time;
 
@@ -461,11 +470,13 @@ void ModifyFlightDetails()
         }
     }
 
+    Flight new_flight = null;
+
     // -> OPT 3 // NEED TO CHANGE THE OBJECT TYPE 
     void ModifySpecialRequestCode()
     {
         Console.WriteLine("Enter new request code: ");
-        string new_code = Console.ReadLine();
+        string new_code = Console.ReadLine().ToUpper();
 
         string[] accepted_code = ["DDJB", "LWTT", "CFFT", "NORM"];
 
@@ -476,27 +487,83 @@ void ModifyFlightDetails()
                 // CHANGE THE OBJECT TYPE
                 if (new_code == "DDJB")
                 {
-                    chosen_flight_number = (DDJBFlight)chosen_flight_number;
                     // create a nwe ddjb object
                     DDJBFlight new_flight = new DDJBFlight(chosen_flight_number.FlightNumber, chosen_flight_number.Origin, chosen_flight_number.Destination, chosen_flight_number.ExpectedTime, chosen_flight_number.Status,300.0);
-
                     // going through general and airline dictionary to replace the flights
+                    // REPLACE IN THE SPECIFIC AIRLINE DICTIONARY
+                    foreach (Flight flight_code in specific_airline.Flights.Values)
+                    {
+                        if (flight_code.FlightNumber == chosen_flight_number.FlightNumber)
+                        {
+                            specific_airline.Flights[flight_code.FlightNumber] = new_flight; 
+                        }
+                    }
+
+                    //REPLACE IN THE GENERAL DICTIONARY 
+                    foreach (Flight flight_code in FlightDict.Values)
+                    {
+                        if (flight_code.FlightNumber == chosen_flight_number.FlightNumber)
+                        {
+                            FlightDict[flight_code.FlightNumber] = new_flight;
+                        }
+                    }
+
                 }
                 else if (new_code=="LWTT")
                 {
-                    chosen_flight_number = (LWTTFlight)chosen_flight_number;
+                    // create a nwe lwtt object
+                    LWTTFlight new_flight = new LWTTFlight(chosen_flight_number.FlightNumber, chosen_flight_number.Origin, chosen_flight_number.Destination, chosen_flight_number.ExpectedTime, chosen_flight_number.Status, 500.0);
 
+                    // going through general and airline dictionary to replace the flights
+                    // REPLACE IN THE SPECIFIC AIRLINE DICTIONARY
+                    foreach (Flight flight_code in specific_airline.Flights.Values)
+                    {
+                        if (flight_code.FlightNumber == chosen_flight_number.FlightNumber)
+                        {
+                            specific_airline.Flights[flight_code.FlightNumber] = new_flight;
+                            Console.WriteLine(new_flight.GetType());
+                        }
+                    }
+
+                    //REPLACE IN THE GENERAL DICTIONARY 
+                    foreach (Flight flight_code in FlightDict.Values)
+                    {
+                        if (flight_code.FlightNumber == chosen_flight_number.FlightNumber)
+                        {
+                            FlightDict[flight_code.FlightNumber] = new_flight;
+                        }
+                    }
                 }
                 else if (new_code == "CFFT")
                 {
-                    chosen_flight_number = (CFFTFlight)chosen_flight_number;
+                    // create a nwe lwtt object
+                    CFFTFlight new_flight = new CFFTFlight(chosen_flight_number.FlightNumber, chosen_flight_number.Origin, chosen_flight_number.Destination, chosen_flight_number.ExpectedTime, chosen_flight_number.Status, 150.0);
+
+                    // going through general and airline dictionary to replace the flights
+                    // REPLACE IN THE SPECIFIC AIRLINE DICTIONARY
+                    foreach (Flight flight_code in specific_airline.Flights.Values)
+                    {
+                        if (flight_code.FlightNumber == chosen_flight_number.FlightNumber)
+                        {
+                            specific_airline.Flights[flight_code.FlightNumber] = new_flight;
+                        }
+                    }
+
+                    //REPLACE IN THE GENERAL DICTIONARY 
+                    foreach (Flight flight_code in FlightDict.Values)
+                    {
+                        if (flight_code.FlightNumber == chosen_flight_number.FlightNumber)
+                        {
+                            FlightDict[flight_code.FlightNumber] = new_flight;
+                        }
+                    }
                 }
 
                 Console.WriteLine("Code changed!");
             }
             else
             {
-                Console.WriteLine("Not a valid code.");
+                continue;
             }
         }
     }
@@ -505,7 +572,7 @@ void ModifyFlightDetails()
     void ModifyBoardingGate() // NEED TO MODIFY SO IT CHECKS IF THE LWTT DDJB SHIT MATCHES
     {
         Console.WriteLine("Enter new boarding gate: ");
-        string new_gate = Console.ReadLine();
+        string new_gate = Console.ReadLine().ToUpper();
         BoardingGate wanted_gate = null;
 
         foreach (BoardingGate boardgate in BoardingGateDict.Values)
