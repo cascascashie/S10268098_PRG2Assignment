@@ -478,8 +478,9 @@ void ModifyFlightDetails()
                 {
                     chosen_flight_number = (DDJBFlight)chosen_flight_number;
                     // create a nwe ddjb object
+                    DDJBFlight new_flight = new DDJBFlight(chosen_flight_number.FlightNumber, chosen_flight_number.Origin, chosen_flight_number.Destination, chosen_flight_number.ExpectedTime, chosen_flight_number.Status,300.0);
 
-                    DDJBFlight new_flight = new DDJBFlight(chosen_flight_number.FlightNumber, chosen_flight_number.Origin, chosen_flight_number.Destination, chosen_flight_number.ExpectedTime, 300.0);
+                    // going through general and airline dictionary to replace the flights
                 }
                 else if (new_code=="LWTT")
                 {
