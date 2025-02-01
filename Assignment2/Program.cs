@@ -245,7 +245,7 @@ void FullFlightDetail()
     }
 
     Console.Write("Enter Airline Code: ");
-    string chosen_code = Console.ReadLine();
+    string chosen_code = Console.ReadLine().ToUpper();
 
     // VARIABLE FOR THE CHOSEN AIRLINE
     Airline chosen_airline = null;
@@ -269,7 +269,7 @@ void FullFlightDetail()
     // FLIGHT DETAILS. NEED TO FIX SO THAT AIRLINE DICTIONARY CONTAINS THE SPECIFIC FLIGHTS FOR EACH AIRLINE !!!! NEED FIX 
     foreach (Airline airline in AirlineDict.Values)
     {
-        if (airline.Name == chosen_airline.Name && chosen_airline != null)
+        if (airline.Name == chosen_airline.Name)
         {
             foreach (Flight flight in airline.Flights.Values)
             {
@@ -303,7 +303,7 @@ void ModifyFlightDetails()
     }
 
     Console.WriteLine("Enter Airline Code: ");
-    string chosen_code = Console.ReadLine();
+    string chosen_code = Console.ReadLine().ToUpper();
 
     // VARIABLE FOR THE CHOSEN AIRLINE
     Airline chosen_airline = null;
@@ -354,7 +354,6 @@ void ModifyFlightDetails()
         }
     }
 
-
     // OPTIONS AFTER PICKING THE FLIGHT
     void OptionsAfterPickingFlight()
     {
@@ -379,18 +378,21 @@ void ModifyFlightDetails()
         // SPECIAL CODE 
         if (chosen_flight_number.GetType() != typeof(NORMFlight))
         {
-            Console.WriteLine($"Special Request Code: {chosen_flight_number.GetType()}");
+            string type_code = chosen_flight_number.GetType().ToString().Replace("Assignment2.", "");
+            Console.WriteLine($"Special Request Code: {type_code}");
         }
         else
         {
             Console.WriteLine($"Special Request Code: Unassigned");
         }
 
+        int boarding_gate_checker = 0; // checking if overall there is no boarding gate in the end 
         foreach (BoardingGate bg in BoardingGateDict.Values)
         {
             if (bg.Flight == chosen_flight_number)
             {
                 Console.WriteLine($"Boarding Gate: {bg.GateName}");
+                boarding_gate_checker = 1;
                 break;
             }
             else
@@ -398,7 +400,10 @@ void ModifyFlightDetails()
                 continue;
             }
         }
-        Console.WriteLine("Boarding Gate: Unassigned");
+        if (boarding_gate_checker == 0)
+        {
+            Console.WriteLine("Boarding Gate: Unassigned");
+        }
 
     }
 
@@ -425,7 +430,7 @@ void ModifyFlightDetails()
         chosen_flight_number.Destination = new_destination;
 
 
-        Console.Write("Enter new Expected Departure/Arrival Time (dd/mm/yyyy hh:mm): ");
+        Console.Write("Enter new Expected Departure/Arrival Time (dd/mm/yyyy hh:mm:ss): ");
         DateTime new_time = Convert.ToDateTime(Console.ReadLine());
         chosen_flight_number.ExpectedTime = new_time;
 
@@ -438,7 +443,9 @@ void ModifyFlightDetails()
         Console.WriteLine("Enter new status: ");
         string new_status = Console.ReadLine();
 
-        string[] accepted_status = ["Boarding", "Delayed", "On Time", "Scheduled"];
+        Console.WriteLine(new_status);
+
+        string[] accepted_status = new string[] { "Boarding", "Delayed", "On Time", "Scheduled" };
 
         foreach (string str in accepted_status)
         {
@@ -491,7 +498,7 @@ void ModifyFlightDetails()
     }
 
     // -> OPT 4
-    BoardingGate ModifyBoardingGate() // NEED TO MODIFY SO IT CHECKS IF THE LWTT DDJB SHIT MATCHES
+    void ModifyBoardingGate() // NEED TO MODIFY SO IT CHECKS IF THE LWTT DDJB SHIT MATCHES
     {
         Console.WriteLine("Enter new boarding gate: ");
         string new_gate = Console.ReadLine();
@@ -507,7 +514,7 @@ void ModifyFlightDetails()
             }
         }
 
-        return wanted_gate;
+        //return wanted_gate;
 
 
     }
@@ -537,6 +544,7 @@ void ModifyFlightDetails()
     }
 
     // LETTING USER PICK EITHER TO MODIFY OR TO DELETE
+
     if (user_option == 1)
     {
         ModifyingFlight();
@@ -749,6 +757,8 @@ void MainMenu()
     Console.WriteLine("5. Display Airline Flights"); // CAS
     Console.WriteLine("6. Modify Flight Details"); // CAS 
     Console.WriteLine("7. Display Flight Schedule"); // HT
+    Console.WriteLine("8. Process unassigned flights to boarding gates"); // HT
+    Console.WriteLine("9. Display total fee per airline"); // CAS
     Console.WriteLine("0. Exit");
     Console.WriteLine();
 }
@@ -805,6 +815,14 @@ while (true)
     else if (user_option == 7)
     {
         // HT'S FUNCTION
+    }
+    else if (user_option == 8)
+    {
+        // HT'S FUNCTION
+    }
+    else if (user_option == 9)
+    {
+        DisplayTotalFee(); // can only be carried out if flights are all assigned to a boarding gate (advanced feature (a))
     }
     else
     {
