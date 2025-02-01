@@ -712,8 +712,8 @@ void DisplayTotalFee()
         }
 
         else*/
-        flight.BoardingGate = BoardingGateDict.Values.First();
-        if (flight.BoardingGate != null) // FLIGHT HAS A BOARDING GATE , COMPUTING THE TOTAL, NEED TO ACTUALLY ADD THE BOARDING GATES INTO THE FLIGHT PROPERTY!! HAS AN ELSE 
+        //flight.BoardingGate = BoardingGateDict.Values.First();
+        else if (flight.BoardingGate != null) // FLIGHT HAS A BOARDING GATE , COMPUTING THE TOTAL, NEED TO ACTUALLY ADD THE BOARDING GATES INTO THE FLIGHT PROPERTY!! HAS AN ELSE 
             {
                 // CHECKING THE ORIGIN/DESTINATION
                 if (flight.Origin == "Singapore (SIN)") // CHECKING IF ORIGIN IS SINGAPORE 
