@@ -186,8 +186,7 @@ void ListFlightDetails()
     Console.WriteLine("=========================================");
     Console.WriteLine("List of Flights for Changi Airport Terminal 5");
     Console.WriteLine("=========================================");
-    Console.WriteLine("Flight Number\tAirline Name\t\tOrigin\t\t\tDestination\t\tExpected");
-    Console.WriteLine("Departure/Arrival Time");
+    Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time"}");
 
     foreach (var flightEntry in FlightDict)
     {
@@ -204,9 +203,7 @@ void ListFlightDetails()
             }
         }
 
-        Console.WriteLine($"{flight.FlightNumber}\t{airlineName}\t\t{flight.Origin}\t\t{flight.Destination}\t\t{flight.ExpectedTime:dd/M/yyyy}");
-        Console.WriteLine($"{flight.ExpectedTime:h:mm:ss tt}");
-        Console.WriteLine();
+        Console.WriteLine($"{flight.FlightNumber,-18}{airlineName,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime}");
     }
 }
 
@@ -241,7 +238,7 @@ void AssignBoardingGateToFlight()
     Console.WriteLine("=========================================");
 
     // Prompt for flight number
-    Console.Write("Enter Flight Number: ");
+    Console.WriteLine("Enter Flight Number: ");
     string flightNumber = Console.ReadLine();
 
     // Validate flight exists
@@ -267,7 +264,7 @@ void AssignBoardingGateToFlight()
     Console.WriteLine($"Special Request Code: {specialRequest}");
 
     // prompt for boarding gate
-    Console.Write("Enter Boarding Gate Name: ");
+    Console.WriteLine("Enter Boarding Gate Name: ");
     string gateName = Console.ReadLine();
 
     // check if gate exists
@@ -294,13 +291,13 @@ void AssignBoardingGateToFlight()
     selectedGate.Flight = selectedFlight;
 
     // update flight status
-    Console.Write("Would you like to update the status of the flight? (Y/N) ");
+    Console.WriteLine("Would you like to update the status of the flight? (Y/N) ");
     if (Console.ReadLine().ToUpper() == "Y")
     {
         Console.WriteLine("1. Delayed");
         Console.WriteLine("2. Boarding");
         Console.WriteLine("3. On Time");
-        Console.Write("Please select the new status of the flight: ");
+        Console.WriteLine("Please select the new status of the flight: ");
 
         switch (Console.ReadLine())
         {
@@ -879,13 +876,13 @@ void DisplayFlights()
 
     // Sort flights by expected time
     flights.Sort((a, b) => a.ExpectedTime.CompareTo(b.ExpectedTime));
-
+    // 
     // Print column headers
-    Console.WriteLine($"{"Flight Number", -12}{"AirLine Name",-20}{"Origin",-20}{"Destination",-20}{"Expected Time",-15}");
-    Console.WriteLine($"{"Departure/Arrival Time",-20}{"Status",-20}{"Boarding Gate",-20}");
+    Console.WriteLine($"{"Flight Number", -19}{"AirLine Name",-21}{"Origin",-21}{"Destination",-21}{"Expected"}");
+    Console.WriteLine($"{"Departure/Arrival Time",-27}{"Status",-26}{"Boarding Gate",-20}");
 
-    Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20}",
-        "Time", "Status", "Boarding Gate", "", ""));
+    //Console.WriteLine(String.Format("{0,-18} {1,-20} {2,-20} {3,-20}", COMMENTED OUT BY CAS
+     //   "Time", "Status", "Boarding Gate", "", ""));
 
     // Print each flight's details
     foreach (Flight flight in flights)
@@ -895,7 +892,7 @@ void DisplayFlights()
         string airlineName = GetAirlineName(airlineCode);
 
         //  1stline of flight info
-        Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20} {4:dd/M/yyyy}",
+        Console.WriteLine(String.Format("{0,-18} {1,-20} {2,-20} {3,-20} {4}",
             flight.FlightNumber,
             airlineName,
             flight.Origin,
@@ -903,12 +900,11 @@ void DisplayFlights()
             flight.ExpectedTime));
 
         // 2nd line of flight info
-        Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20}",
+        Console.WriteLine(String.Format("{0,-18} {1,-20} {2,-20}",
             flight.ExpectedTime.ToString("h:mm:00 tt"),
             flight.Status,
             GetBoardingGate(flight)));
 
-        Console.WriteLine();
     }
 }
 
@@ -923,7 +919,7 @@ void ProcessUnassignedFlights()
     Queue<Flight> unassignedFlights = new Queue<Flight>();
     int totalUnassigned = 0;
     int UnassignedGates = 0;
-    int originalUnassigned = 0;
+    int originalUnassigned = 0; 
     int successfullyAssigned = 0;
 
     //checks all scheduled flights and adds those with unassigned boarding gates to queue
