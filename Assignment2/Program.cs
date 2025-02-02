@@ -1020,7 +1020,7 @@ void ProcessUnassignedFlights()
                 // Display assignment details
                 Console.WriteLine($"Assigned Flights Details:");
                 Console.WriteLine($"Flight Number: {currentFlight.FlightNumber}");
-                Console.WriteLine($"Airline: {GetAirlineName(currentFlight.FlightNumber.Substring(0, 2))}");
+               // Console.WriteLine($"Airline: {GetAirlineName(currentFlight.FlightNumber.Substring(0, 2))}"); - didnt work
                 Console.WriteLine($"Origin: {currentFlight.Origin}");
                 Console.WriteLine($"Destination: {currentFlight.Destination}");
                 Console.WriteLine($"Expected Time: {currentFlight.ExpectedTime:dd/MM/yyyy HH:mm}");
