@@ -197,7 +197,7 @@ void ListFlightDetails()
         // Find airline name for this flight
         foreach (var airlineEntry in AirlineDict)
         {
-            if (airlineEntry.Value.Flights.ContainsKey(flight.FlightNumber))
+            if (airlineEntry.Value.Flights.ContainsKey(flight.FlightNumber)) // further editing
             {
                 airlineName = airlineEntry.Value.Name;
                 break;
@@ -271,7 +271,7 @@ void AssignBoardingGateToFlight()
     string gateName = Console.ReadLine();
 
     // check if gate exists
-    if (!BoardingGateDict.ContainsKey(gateName))
+    if (!BoardingGateDict.ContainsKey(gateName)) // further editing
     {
         Console.WriteLine("Boarding gate not found!");
         return;
@@ -341,7 +341,7 @@ void CreateFlight()
 
         Console.Write("Enter Expected Departure/Arrival Time (dd/mm/yyyy hh:mm): ");
         string timeStr = Console.ReadLine();
-        DateTime expectedTime = DateTime.ParseExact(timeStr, "dd/MM/yyyy HH:mm", null);
+        DateTime expectedTime = DateTime.ParseExact(timeStr, "dd/MM/yyyy HH:mm", null); // further editing
 
         Console.Write("Enter Special Request Code (CFFT/DDJB/LWTT/None): ");
         string requestCode = Console.ReadLine().ToUpper();
@@ -874,7 +874,7 @@ void DisplayFlights()
         {"JL", "Japan Airlines"}
     };
 
-        return airlineNames.ContainsKey(airlineCode) ? airlineNames[airlineCode] : "Unknown Airline";
+        return airlineNames.ContainsKey(airlineCode) ? airlineNames[airlineCode] : "Unknown Airline"; // further editing
     }
 
     string GetBoardingGate(Flight flight)
@@ -889,13 +889,6 @@ void DisplayFlights()
         }
         return "Unassigned";
     }
-
-
-    // Print program info and current date
-    Console.WriteLine("PRG2 (IT, CSF, DS)");
-    Console.WriteLine($"Last Update: {DateTime.Now:dd/MM/yyyy}\n");
-    Console.WriteLine("Year 2024/25 Assignment");
-    Console.WriteLine("- 13 -\n");
 
     // Get all flights and convert to list for sorting
     var flights = FlightDict.Values.ToList();
