@@ -967,7 +967,7 @@ void DisplayTotalFee()
 
         //if want to debug, comment out the first 'if' and ADD 'flight.BoardingGate = BoardingGateDict.Values.First();' IN FRONT OF THE NEXT 'IF'
 
-        /*if (flight.BoardingGate == null) // CHECKING IF FLIGHT HAS A BOARDING GATE 
+        if (flight.BoardingGate == null) // CHECKING IF FLIGHT HAS A BOARDING GATE 
         {
             Console.WriteLine();
             Console.WriteLine("Not all flights have been assigned to a boarding gate.");
@@ -975,9 +975,9 @@ void DisplayTotalFee()
             return;
         }
 
-        else*/
-         flight.BoardingGate = BoardingGateDict.Values.First();
-        if (flight.BoardingGate != null) // FLIGHT HAS A BOARDING GATE , COMPUTING THE TOTAL, NEED TO ACTUALLY ADD THE BOARDING GATES INTO THE FLIGHT PROPERTY!! HAS AN ELSE 
+        //else*/
+         //flight.BoardingGate = BoardingGateDict.Values.First();
+        else if (flight.BoardingGate != null) // FLIGHT HAS A BOARDING GATE , COMPUTING THE TOTAL, NEED TO ACTUALLY ADD THE BOARDING GATES INTO THE FLIGHT PROPERTY!! HAS AN ELSE 
             {
                 // CHECKING THE ORIGIN/DESTINATION
                 if (flight.Origin == "Singapore (SIN)") // CHECKING IF ORIGIN IS SINGAPORE 
