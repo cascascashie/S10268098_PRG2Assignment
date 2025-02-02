@@ -259,6 +259,13 @@ void AssignBoardingGateToFlight()
 
     BoardingGate selectedGate = BoardingGateDict[gateName];
 
+    // check whether gate has been assigned
+    if (selectedGate.Flight != null)
+    {
+        Console.WriteLine("This boarding gate is already assigned to another flight!");
+        return;
+    }
+
     // display flight info
     Console.WriteLine($"Flight Number: {selectedFlight.FlightNumber}");
     Console.WriteLine($"Origin: {selectedFlight.Origin}");
@@ -271,14 +278,6 @@ void AssignBoardingGateToFlight()
     else if (selectedFlight is DDJBFlight) specialRequest = "DDJB";
     else if (selectedFlight is LWTTFlight) specialRequest = "LWTT";
     Console.WriteLine($"Special Request Code: {specialRequest}");
-
-
-    // check whether gate has been assigned
-    if (selectedGate.Flight != null)
-    {
-        Console.WriteLine("This boarding gate is already assigned to another flight!");
-        return;
-    }
 
     // display flight info and assign flight to gate info
     Console.WriteLine($"Boarding Gate Name: {gateName}");
