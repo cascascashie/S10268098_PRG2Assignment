@@ -530,7 +530,7 @@ void ModifyFlightDetails()
 
     // LETTING USER CHOOSE THE FLIGHT TO CHANGE
     Console.WriteLine("Choose an existing Flight to modify or delete: ");
-    string chosen_flight = Console.ReadLine();
+    string chosen_flight = Console.ReadLine().ToUpper();
 
     // need to obtain the specific flight object 
     Flight chosen_flight_number = null;
