@@ -998,6 +998,7 @@ void ProcessUnassignedFlights()
             {
                 // assigns gate to flight
                 gate.Flight = currentFlight;
+                //currentFlight.BoardingGate = gate;
                 assigned = true;
                 successfullyAssigned++;
 
