@@ -197,7 +197,7 @@ void ListFlightDetails()
         // Find airline name for this flight
         foreach (var airlineEntry in AirlineDict)
         {
-            if (airlineEntry.Value.Flights.ContainsKey(flight.FlightNumber))
+            if (airlineEntry.Value.Flights.ContainsKey(flight.FlightNumber)) // further editing
             {
                 airlineName = airlineEntry.Value.Name;
                 break;
@@ -271,7 +271,7 @@ void AssignBoardingGateToFlight()
     string gateName = Console.ReadLine();
 
     // check if gate exists
-    if (!BoardingGateDict.ContainsKey(gateName))
+    if (!BoardingGateDict.ContainsKey(gateName)) // further editing
     {
         Console.WriteLine("Boarding gate not found!");
         return;
@@ -341,7 +341,7 @@ void CreateFlight()
 
         Console.Write("Enter Expected Departure/Arrival Time (dd/mm/yyyy hh:mm): ");
         string timeStr = Console.ReadLine();
-        DateTime expectedTime = DateTime.ParseExact(timeStr, "dd/MM/yyyy HH:mm", null);
+        DateTime expectedTime = DateTime.ParseExact(timeStr, "dd/MM/yyyy HH:mm", null); // further editing
 
         Console.Write("Enter Special Request Code (CFFT/DDJB/LWTT/None): ");
         string requestCode = Console.ReadLine().ToUpper();
@@ -874,7 +874,7 @@ void DisplayFlights()
         {"JL", "Japan Airlines"}
     };
 
-        return airlineNames.ContainsKey(airlineCode) ? airlineNames[airlineCode] : "Unknown Airline";
+        return airlineNames.ContainsKey(airlineCode) ? airlineNames[airlineCode] : "Unknown Airline"; // further editing
     }
 
     string GetBoardingGate(Flight flight)
@@ -890,13 +890,6 @@ void DisplayFlights()
         return "Unassigned";
     }
 
-
-    // Print program info and current date
-    Console.WriteLine("PRG2 (IT, CSF, DS)");
-    Console.WriteLine($"Last Update: {DateTime.Now:dd/MM/yyyy}\n");
-    Console.WriteLine("Year 2024/25 Assignment");
-    Console.WriteLine("- 13 -\n");
-
     // Get all flights and convert to list for sorting
     var flights = FlightDict.Values.ToList();
 
@@ -904,8 +897,9 @@ void DisplayFlights()
     flights.Sort((a, b) => a.ExpectedTime.CompareTo(b.ExpectedTime));
 
     // Print column headers
-    Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20} {4,-15}",
-        "Flight Number", "Airline Name", "Origin", "Destination", "Expected"));
+    Console.WriteLine($"{"Flight Number", -12}{"AirLine Name",-20}{"Origin",-20}{"Destination",-20}{"Expected Time",-15}");
+    Console.WriteLine($"{"Departure/Arrival Time",-20}{"Status",-20}{"Boarding Gate",-20}");
+
     Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20}",
         "Time", "Status", "Boarding Gate", "", ""));
 
@@ -916,7 +910,7 @@ void DisplayFlights()
         string airlineCode = flight.FlightNumber.Substring(0, 2);
         string airlineName = GetAirlineName(airlineCode);
 
-        // First line of flight info
+        //  1stline of flight info
         Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20} {4:dd/M/yyyy}",
             flight.FlightNumber,
             airlineName,
@@ -924,7 +918,7 @@ void DisplayFlights()
             flight.Destination,
             flight.ExpectedTime));
 
-        // Second line of flight info
+        // 2nd line of flight info
         Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20}",
             flight.ExpectedTime.ToString("h:mm:00 tt"),
             flight.Status,
