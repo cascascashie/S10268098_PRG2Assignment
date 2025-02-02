@@ -448,47 +448,41 @@ void FullFlightDetail()
     {
         Console.WriteLine($"{AirlineInfo.Code,-16}{AirlineInfo.Name,-18}");
     }
-    try
+
+    Console.Write("Enter Airline Code: ");
+    string chosen_code = Console.ReadLine().ToUpper();
+
+    // VARIABLE FOR THE CHOSEN AIRLINE
+    Airline chosen_airline = null;
+
+    foreach (Airline airline in AirlineDict.Values)
     {
-        Console.Write("Enter Airline Code: ");
-        string chosen_code = Console.ReadLine().ToUpper();
-
-        // VARIABLE FOR THE CHOSEN AIRLINE
-        Airline chosen_airline = null;
-
-        foreach (Airline airline in AirlineDict.Values)
+        if (airline.Code == chosen_code)
         {
-            if (airline.Code == chosen_code)
-            {
-                chosen_airline = airline;
-            }
-        }
-
-        // THE NAME ADJUSTS ACCORDING TO THE CHOSEN AIRLINE CODE 
-        Console.WriteLine("=============================================");
-        Console.WriteLine($"List of Flights for {chosen_airline.Name}");
-        Console.WriteLine("=============================================");
-
-        // HEADER 
-        Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time"}");
-
-        // FLIGHT DETAILS. NEED TO FIX SO THAT AIRLINE DICTIONARY CONTAINS THE SPECIFIC FLIGHTS FOR EACH AIRLINE !!!! NEED FIX 
-        foreach (Airline airline in AirlineDict.Values)
-        {
-            if (airline.Name == chosen_airline.Name)
-            {
-                foreach (Flight flight in airline.Flights.Values)
-                {
-                    Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime}");
-                }
-
-            }
-            else { continue; }
+            chosen_airline = airline;
         }
     }
-    catch (Exception ex)
+
+    // THE NAME ADJUSTS ACCORDING TO THE CHOSEN AIRLINE CODE 
+    Console.WriteLine("=============================================");
+    Console.WriteLine($"List of Flights for {chosen_airline.Name}");
+    Console.WriteLine("=============================================");
+
+    // HEADER 
+    Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time"}");
+
+    // FLIGHT DETAILS. NEED TO FIX SO THAT AIRLINE DICTIONARY CONTAINS THE SPECIFIC FLIGHTS FOR EACH AIRLINE !!!! NEED FIX 
+    foreach (Airline airline in AirlineDict.Values)
     {
-        Console.WriteLine($"An error occurred: {ex.Message}");
+        if (airline.Name == chosen_airline.Name)
+        {
+            foreach (Flight flight in airline.Flights.Values)
+            {
+                Console.WriteLine($"{flight.FlightNumber,-18}{chosen_airline.Name,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime}");
+            }
+
+        }
+        else { continue; }
     }
 }
 
@@ -1019,14 +1013,14 @@ void ProcessUnassignedFlights()
             {
                 // assigns gate to flight
                 gate.Flight = currentFlight;
-                currentFlight.BoardingGate = gate;
+                //currentFlight.BoardingGate = gate;
                 assigned = true;
                 successfullyAssigned++;
 
                 // Display assignment details
                 Console.WriteLine($"Assigned Flights Details:");
                 Console.WriteLine($"Flight Number: {currentFlight.FlightNumber}");
-                //Console.WriteLine($"Airline: {GetAirlineName(currentFlight.FlightNumber.Substring(0, 2))}");
+                Console.WriteLine($"Airline: {GetAirlineName(currentFlight.FlightNumber.Substring(0, 2))}");
                 Console.WriteLine($"Origin: {currentFlight.Origin}");
                 Console.WriteLine($"Destination: {currentFlight.Destination}");
                 Console.WriteLine($"Expected Time: {currentFlight.ExpectedTime:dd/MM/yyyy HH:mm}");
