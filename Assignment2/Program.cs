@@ -246,6 +246,19 @@ void AssignBoardingGateToFlight()
 
     Flight selectedFlight = FlightDict[flightNumber];
 
+    // prompt for boarding gate
+    Console.WriteLine("Enter Boarding Gate Name: ");
+    string gateName = Console.ReadLine();
+
+    // check if gate exists
+    if (!BoardingGateDict.ContainsKey(gateName))
+    {
+        Console.WriteLine("Boarding gate not found!");
+        return;
+    }
+
+    BoardingGate selectedGate = BoardingGateDict[gateName];
+
     // display flight info
     Console.WriteLine($"Flight Number: {selectedFlight.FlightNumber}");
     Console.WriteLine($"Origin: {selectedFlight.Origin}");
@@ -259,18 +272,6 @@ void AssignBoardingGateToFlight()
     else if (selectedFlight is LWTTFlight) specialRequest = "LWTT";
     Console.WriteLine($"Special Request Code: {specialRequest}");
 
-    // prompt for boarding gate
-    Console.WriteLine("Enter Boarding Gate Name: ");
-    string gateName = Console.ReadLine();
-
-    // check if gate exists
-    if (!BoardingGateDict.ContainsKey(gateName))
-    {
-        Console.WriteLine("Boarding gate not found!");
-        return;
-    }
-
-    BoardingGate selectedGate = BoardingGateDict[gateName];
 
     // check whether gate has been assigned
     if (selectedGate.Flight != null)
@@ -471,9 +472,7 @@ void FullFlightDetail()
     }
 }
 
-
 // METHOD 8 - Modify flight details [CASANDRA] 
-
 void ModifyFlightDetails()
 {
     // TITLE
@@ -773,12 +772,9 @@ void ModifyFlightDetails()
                 Console.WriteLine("Boarding Gate changed!");
             }
         }
-
         //return wanted_gate;
 
-
     }
-
 
     // OPTION 2, DELETING A FLIGHT 
     void DeletingAFlight()
@@ -840,15 +836,12 @@ void ModifyFlightDetails()
         {
             Console.WriteLine("Invalid option!");
         }
-
-
     }
     else if (user_option==2)
     {
         DeletingAFlight();
     }
 }
-
 
 // METHOD 9 - Display scheduled flights in chronological order, where boarding gates are applicable [HNIN THAW]
 
@@ -885,17 +878,14 @@ void DisplayFlights()
     Console.WriteLine($"{"Flight Number", -19}{"AirLine Name",-21}{"Origin",-21}{"Destination",-21}{"Expected"}");
     Console.WriteLine($"{"Departure/Arrival Time",-27}{"Status",-26}{"Boarding Gate",-20}");
 
-    //Console.WriteLine(String.Format("{0,-18} {1,-20} {2,-20} {3,-20}", COMMENTED OUT BY CAS
-     //   "Time", "Status", "Boarding Gate", "", ""));
-
-    // Print each flight's details
+    // print each flight's details
     foreach (Flight flight in flights)
     {
         // get airline name from flight number (first 2 letters)
         string airlineCode = flight.FlightNumber.Substring(0, 2);
         string airlineName = GetAirlineName(airlineCode);
 
-        //  1stline of flight info
+        // 1st line of flight info
         Console.WriteLine(String.Format("{0,-18} {1,-20} {2,-20} {3,-20} {4}",
             flight.FlightNumber,
             airlineName,
@@ -926,7 +916,7 @@ void ProcessUnassignedFlights()
     int originalUnassigned = 0; 
     int successfullyAssigned = 0;
 
-    //checks all scheduled flights and adds those with unassigned boarding gates to queue
+    // checks all scheduled flights and adds those with unassigned boarding gates to queue
     foreach (Flight flight in FlightDict.Values)
     {
         bool isAssigned = false;
@@ -961,6 +951,7 @@ void ProcessUnassignedFlights()
     Console.WriteLine($"Total number of available boarding gates: {UnassignedGates}\n");
 
     // needed for the below loop to work
+    // Determine if flight has special request
     string SpecialRequest(Flight flight)
     {
         if (flight is CFFTFlight) return "CFFT";
@@ -974,10 +965,9 @@ void ProcessUnassignedFlights()
         Flight currentFlight = unassignedFlights.Dequeue();
         bool assigned = false;
 
-        // Determine if flight has special request
         string specialRequest = SpecialRequest(currentFlight);
 
-        // Try to find matching gate
+        // find matching gate
         foreach (BoardingGate gate in BoardingGateDict.Values)
         {
             if (gate.Flight != null) continue;
@@ -1007,13 +997,13 @@ void ProcessUnassignedFlights()
 
             if (isMatchingGate)
             {
-                // Assign gate to flight
+                // assigns gate to flight
                 gate.Flight = currentFlight;
                 assigned = true;
                 successfullyAssigned++;
 
                 // Display assignment details
-                Console.WriteLine($"Flight Assignment Details:");
+                Console.WriteLine($"Assigned Flights Details:");
                 Console.WriteLine($"Flight Number: {currentFlight.FlightNumber}");
                 Console.WriteLine($"Airline: {GetAirlineName(currentFlight.FlightNumber.Substring(0, 2))}");
                 Console.WriteLine($"Origin: {currentFlight.Origin}");
@@ -1034,7 +1024,7 @@ void ProcessUnassignedFlights()
         }
     }
 
-    // Display number of flights n gates processed and assigned
+    // display number of flights n gates processed and assigned
     Console.WriteLine($"Total Flights Processed: {originalUnassigned}");
     Console.WriteLine($"Successfully Assigned: {successfullyAssigned}");
     if (originalUnassigned > 0)
