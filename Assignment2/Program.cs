@@ -858,22 +858,6 @@ void DisplayFlights()
     Console.WriteLine(header);
     Console.WriteLine(separator);
 
-    // methods needed for following codes in feature 9
-    string GetAirlineName(string airlineCode)
-    {
-        Dictionary<string, string> airlineNames = new Dictionary<string, string>
-    {
-        {"SQ", "Singapore Airlines"},
-        {"QF", "Qantas Airways"},
-        {"EK", "Emirates"},
-        {"BA", "British Airways"},
-        {"TR", "AirAsia"},
-        {"JL", "Japan Airlines"}
-    };
-
-        return airlineNames.ContainsKey(airlineCode) ? airlineNames[airlineCode] : "Unknown Airline"; // further editing
-    }
-
     string GetBoardingGate(Flight flight)
     {
         // finds gate assigned to this flight in boarding gate data dict
@@ -927,11 +911,133 @@ void DisplayFlights()
 
 // ADVANCED FEATURES [20% INDIVIDUAL]
 
-// METHOD (a) - Process all unassigned flights to boarding gates in bulk
+// METHOD (a) - Process all unassigned flights to boarding gates in bulk - ht
 
 void ProcessUnassignedFlights() 
 {
-    // CAN ADJUST TO HOWEVER YOU WANT 
+    // queue for unassigned flights
+    Queue<Flight> unassignedFlights = new Queue<Flight>();
+    int totalUnassigned = 0;
+    int UnassignedGates = 0;
+    int originalUnassigned = 0;
+    int successfullyAssigned = 0;
+
+    //checks all scheduled flights and adds those with unassigned boarding gates to queue
+    foreach (Flight flight in FlightDict.Values)
+    {
+        bool isAssigned = false;
+        foreach (BoardingGate gate in BoardingGateDict.Values)
+        {
+            if (gate.Flight != null && gate.Flight.FlightNumber == flight.FlightNumber)
+            {
+                isAssigned = true;
+                break;
+            }
+        }
+
+        if (isAssigned == false )
+        {
+            unassignedFlights.Enqueue(flight);
+            totalUnassigned++;
+        }
+    }
+    // after checking, displays the no. of flights without a boarding gate
+    originalUnassigned = totalUnassigned;
+    Console.WriteLine($"Total number of unassigned flights: {totalUnassigned}");
+
+    //checks whether boarding gates have been assigned to a flight
+    //counts and displays the no. of unassigned gates
+    foreach (BoardingGate gate in BoardingGateDict.Values)
+    {
+        if (gate.Flight == null)
+        {
+            UnassignedGates++;
+        }
+    }
+    Console.WriteLine($"Total number of available boarding gates: {UnassignedGates}\n");
+
+    // needed for the below loop to work
+    string SpecialRequest(Flight flight)
+    {
+        if (flight is CFFTFlight) return "CFFT";
+        if (flight is DDJBFlight) return "DDJB";
+        if (flight is LWTTFlight) return "LWTT";
+        return "";
+    }
+
+    while (unassignedFlights.Count > 0)
+    {
+        Flight currentFlight = unassignedFlights.Dequeue();
+        bool assigned = false;
+
+        // Determine if flight has special request
+        string specialRequest = SpecialRequest(currentFlight);
+
+        // Try to find matching gate
+        foreach (BoardingGate gate in BoardingGateDict.Values)
+        {
+            if (gate.Flight != null) continue;
+
+            bool isMatchingGate = false;
+            if (!string.IsNullOrEmpty(specialRequest))
+            {
+                // Check for matching special request support
+                switch (specialRequest)
+                {
+                    case "CFFT":
+                        isMatchingGate = gate.SupportsCFFT;
+                        break;
+                    case "DDJB":
+                        isMatchingGate = gate.SupportsDDJB;
+                        break;
+                    case "LWTT":
+                        isMatchingGate = gate.SupportsLWTT;
+                        break;
+                }
+            }
+            else
+            {
+                // normal flights, use gates without special support
+                isMatchingGate = !gate.SupportsCFFT && !gate.SupportsDDJB && !gate.SupportsLWTT;
+            }
+
+            if (isMatchingGate)
+            {
+                // Assign gate to flight
+                gate.Flight = currentFlight;
+                assigned = true;
+                successfullyAssigned++;
+
+                // Display assignment details
+                Console.WriteLine($"Flight Assignment Details:");
+                Console.WriteLine($"Flight Number: {currentFlight.FlightNumber}");
+                Console.WriteLine($"Airline: {GetAirlineName(currentFlight.FlightNumber.Substring(0, 2))}");
+                Console.WriteLine($"Origin: {currentFlight.Origin}");
+                Console.WriteLine($"Destination: {currentFlight.Destination}");
+                Console.WriteLine($"Expected Time: {currentFlight.ExpectedTime:dd/MM/yyyy HH:mm}");
+                if (!string.IsNullOrEmpty(specialRequest))
+                {
+                    Console.WriteLine($"Special Request: {specialRequest}");
+                }
+                Console.WriteLine($"Assigned Gate: {gate.GateName}\n");
+                break;
+            }
+        }
+
+        if (!assigned)
+        {
+            Console.WriteLine($"Unable to assign gate to flight {currentFlight.FlightNumber} - No compatible gate available\n");
+        }
+    }
+
+    // Display number of flights n gates processed and assigned
+    Console.WriteLine($"Total Flights Processed: {originalUnassigned}");
+    Console.WriteLine($"Successfully Assigned: {successfullyAssigned}");
+    if (originalUnassigned > 0)
+    {
+        double successRate = (double)successfullyAssigned / originalUnassigned * 100;
+        Console.WriteLine($"Success Rate: {successRate:F1}%");
+    }
 }
 
 
@@ -1216,6 +1322,19 @@ while (true)
     Console.WriteLine();
     Console.WriteLine();
 }
+string GetAirlineName(string airlineCode)
+{
+    Dictionary<string, string> airlineNames = new Dictionary<string, string>
+    {
+        {"SQ", "Singapore Airlines"},
+        {"QF", "Qantas Airways"},
+        {"EK", "Emirates"},
+        {"BA", "British Airways"},
+        {"TR", "AirAsia"},
+        {"JL", "Japan Airlines"}
+    };
 
+    return airlineNames.ContainsKey(airlineCode) ? airlineNames[airlineCode] : "Unknown Airline"; // further editing
+}
 
 
