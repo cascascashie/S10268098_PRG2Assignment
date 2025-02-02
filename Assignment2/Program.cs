@@ -317,7 +317,6 @@ void AssignBoardingGateToFlight()
 
 
 // METHOD 6 - Create a new flight [HNIN THAW]
-
 void CreateFlight()
 {
     bool add = true;
