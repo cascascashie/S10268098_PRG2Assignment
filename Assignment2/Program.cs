@@ -191,15 +191,19 @@ void ListFlightDetails()
     foreach (Flight flight in FlightDict.Values)
     {
         string airlineName = "";
-
-        foreach (Airline airline in AirlineDict.Values)
+        if (flight != null && flight.FlightNumber != null)
         {
-            if (airline.Flights.ContainsKey(flight.FlightNumber))
+            foreach (Airline airline in AirlineDict.Values)
             {
-                airlineName = airline.Name;
-                break;
+                if (airline != null && airline.Flights != null &&
+                    airline.Flights.ContainsKey(flight.FlightNumber))
+                {
+                    airlineName = airline.Name;
+                    break;
+                }
             }
         }
+
         Console.WriteLine($"{flight.FlightNumber,-18}{airlineName,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime}");
     }
 }
