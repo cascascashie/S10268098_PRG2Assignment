@@ -322,6 +322,7 @@ void CreateFlight()
     bool add = true;
     while (add)
     {
+
         Console.Write("Enter Flight Number: ");
         string flightNo = Console.ReadLine();
 
@@ -400,10 +401,14 @@ void CreateFlight()
         // add flight to dict
         FlightDict.Add(flightNo, flight);
 
+        // to get airline name 
+        string airlineCode = flightNo.Substring(0, 2);
+        string airlineName = GetAirlineName(airlineCode);
+
         // append to flights file
         using (StreamWriter sw = File.AppendText("flights.csv"))
         {
-            sw.WriteLine($"{flightNo},{origin},{destination},{time},{requestCode}");
+            sw.WriteLine($"{flightNo},{airlineName},{origin},{destination},{time},{requestCode}");
         }
 
         Console.WriteLine($"Flight {flightNo} has been added!");
@@ -872,7 +877,7 @@ void DisplayFlights()
     // sort flights by expected time
     flights.Sort((a, b) => a.ExpectedTime.CompareTo(b.ExpectedTime));
  
-    //header
+    // header
     Console.WriteLine($"{"Flight Number", -19}{"AirLine Name",-21}{"Origin",-21}{"Destination",-21}{"Expected"}");
     Console.WriteLine($"{"Departure/Arrival Time",-27}{"Status",-26}{"Boarding Gate",-20}");
 
