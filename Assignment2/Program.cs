@@ -1177,7 +1177,7 @@ while (true)
     }
     else if (user_option == 1)
     {
-        // HT'S FUNCTION
+        ListFlightDetails;
     }
     else if (user_option == 2)
     {
@@ -1185,11 +1185,11 @@ while (true)
     }
     else if (user_option == 3)
     {
-        // HT'S FUNCTION
+        AssignBoardingGateToFlight();
     }
     else if (user_option == 4)
     {
-        // HT'S FUNCTION
+        CreateFlight();
     }
     else if (user_option == 5)
     {
@@ -1201,11 +1201,11 @@ while (true)
     }
     else if (user_option == 7)
     {
-        // HT'S FUNCTION
+        DisplayFlights();
     }
     else if (user_option == 8)
     {
-        // HT'S FUNCTION
+        ProcessUnassignedFlights(); // UNDONE
     }
     else if (user_option == 9)
     {
