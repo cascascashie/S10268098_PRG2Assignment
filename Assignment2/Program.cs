@@ -897,8 +897,9 @@ void DisplayFlights()
     flights.Sort((a, b) => a.ExpectedTime.CompareTo(b.ExpectedTime));
 
     // Print column headers
-    Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20} {4,-15}",
-        "Flight Number", "Airline Name", "Origin", "Destination", "Expected"));
+    Console.WriteLine($"{"Flight Number", -12}{"AirLine Name",-20}{"Origin",-20}{"Destination",-20}{"Expected Time",-15}");
+    Console.WriteLine($"{"Departure/Arrival Time",-20}{"Status",-20}{"Boarding Gate",-20}");
+
     Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20}",
         "Time", "Status", "Boarding Gate", "", ""));
 
@@ -909,7 +910,7 @@ void DisplayFlights()
         string airlineCode = flight.FlightNumber.Substring(0, 2);
         string airlineName = GetAirlineName(airlineCode);
 
-        // First line of flight info
+        //  1stline of flight info
         Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20} {3,-20} {4:dd/M/yyyy}",
             flight.FlightNumber,
             airlineName,
@@ -917,7 +918,7 @@ void DisplayFlights()
             flight.Destination,
             flight.ExpectedTime));
 
-        // Second line of flight info
+        // 2nd line of flight info
         Console.WriteLine(String.Format("{0,-12} {1,-20} {2,-20}",
             flight.ExpectedTime.ToString("h:mm:00 tt"),
             flight.Status,
