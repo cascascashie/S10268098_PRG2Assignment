@@ -183,39 +183,35 @@ void LoadFlights()
 
 void ListFlightDetails()
 {
-    Console.WriteLine("=========================================");
+    Console.WriteLine("===============================================");
     Console.WriteLine("List of Flights for Changi Airport Terminal 5");
-    Console.WriteLine("=========================================");
+    Console.WriteLine("===============================================");
     Console.WriteLine($"{"Flight Number",-18}{"Airline Name",-23}{"Origin",-23}{"Destination",-23}{"Expected Departure/Arrival Time"}");
 
-    foreach (var flightEntry in FlightDict)
+    foreach (Flight flight in FlightDict.Values)
     {
-        Flight flight = flightEntry.Value;
         string airlineName = "";
 
-        // Find airline name for this flight
-        foreach (var airlineEntry in AirlineDict)
+        foreach (Airline airline in AirlineDict.Values)
         {
-            if (airlineEntry.Value.Flights.ContainsKey(flight.FlightNumber)) // further editing
+            if (airline.Flights.ContainsKey(flight.FlightNumber))
             {
-                airlineName = airlineEntry.Value.Name;
+                airlineName = airline.Name;
                 break;
             }
         }
-
         Console.WriteLine($"{flight.FlightNumber,-18}{airlineName,-23}{flight.Origin,-23}{flight.Destination,-23}{flight.ExpectedTime}");
     }
 }
-
 
 // METHOD 4 - List all boarding gates [CASANDRA] 
 
 void ListBoardingGates()
 {
     // TITLE
-    Console.WriteLine("=============================================");
+    Console.WriteLine("=====================================================");
     Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
-    Console.WriteLine("=============================================");
+    Console.WriteLine("=====================================================");
 
     // HEADER 
     Console.WriteLine($"{"Gate Name",-16}{"DDJB",-23}{"CFFT",-23}{"LWTT",-6}");
@@ -233,9 +229,9 @@ void ListBoardingGates()
 
 void AssignBoardingGateToFlight()
 {
-    Console.WriteLine("=========================================");
+    Console.WriteLine("=======================================");
     Console.WriteLine("Assign a Boarding Gate to a Flight");
-    Console.WriteLine("=========================================");
+    Console.WriteLine("=======================================");
 
     // Prompt for flight number
     Console.WriteLine("Enter Flight Number: ");
@@ -268,7 +264,7 @@ void AssignBoardingGateToFlight()
     string gateName = Console.ReadLine();
 
     // check if gate exists
-    if (!BoardingGateDict.ContainsKey(gateName)) // further editing
+    if (!BoardingGateDict.ContainsKey(gateName))
     {
         Console.WriteLine("Boarding gate not found!");
         return;
@@ -276,7 +272,7 @@ void AssignBoardingGateToFlight()
 
     BoardingGate selectedGate = BoardingGateDict[gateName];
 
-    // check if gate has already been assigned
+    // check whether gate has been assigned
     if (selectedGate.Flight != null)
     {
         Console.WriteLine("This boarding gate is already assigned to another flight!");
@@ -337,8 +333,18 @@ void CreateFlight()
         string destination = Console.ReadLine();
 
         Console.Write("Enter Expected Departure/Arrival Time (dd/mm/yyyy hh:mm): ");
-        string timeStr = Console.ReadLine();
-        DateTime expectedTime = DateTime.ParseExact(timeStr, "dd/MM/yyyy HH:mm", null); // further editing
+        string time = Console.ReadLine();
+        string[] dateTimeParts = time.Split(' '); // splits into date and time
+        string[] dateParts = dateTimeParts[0].Split('/'); // splits date into dd/mm/yyyy
+        string[] timeParts = dateTimeParts[1].Split(':'); // splits time into hh:mm
+
+        int day = Convert.ToInt32(dateParts[0]);
+        int month = Convert.ToInt32(dateParts[1]);
+        int year = Convert.ToInt32(dateParts[2]);
+        int hour = Convert.ToInt32(timeParts[0]);
+        int minute = Convert.ToInt32(timeParts[1]);
+
+        DateTime expectedTime = new DateTime(year, month, day, hour, minute, 0);
 
         Console.Write("Enter Special Request Code (CFFT/DDJB/LWTT/None): ");
         string requestCode = Console.ReadLine().ToUpper();
@@ -398,7 +404,7 @@ void CreateFlight()
         // append to flights file
         using (StreamWriter sw = File.AppendText("flights.csv"))
         {
-            sw.WriteLine($"{flightNo},{origin},{destination},{timeStr},{requestCode}");
+            sw.WriteLine($"{flightNo},{origin},{destination},{time},{requestCode}");
         }
 
         Console.WriteLine($"Flight {flightNo} has been added!");
@@ -463,8 +469,6 @@ void FullFlightDetail()
         }
         else { continue; }
     }
-
-
 }
 
 
@@ -871,13 +875,13 @@ void DisplayFlights()
         return "Unassigned";
     }
 
-    // Get all flights and convert to list for sorting
-    var flights = FlightDict.Values.ToList();
+    // get all flights and convert to list for sorting
+    List<Flight> flights = FlightDict.Values.ToList();
 
-    // Sort flights by expected time
+    // sort flights by expected time
     flights.Sort((a, b) => a.ExpectedTime.CompareTo(b.ExpectedTime));
-    // 
-    // Print column headers
+ 
+    //header
     Console.WriteLine($"{"Flight Number", -19}{"AirLine Name",-21}{"Origin",-21}{"Destination",-21}{"Expected"}");
     Console.WriteLine($"{"Departure/Arrival Time",-27}{"Status",-26}{"Boarding Gate",-20}");
 
