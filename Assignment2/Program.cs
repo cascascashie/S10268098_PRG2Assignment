@@ -1177,7 +1177,7 @@ while (true)
     }
     else if (user_option == 1)
     {
-        ListFlightDetails;
+        ListFlightDetails();
     }
     else if (user_option == 2)
     {
