@@ -64,7 +64,7 @@ void LoadAirlinesAndBoardingGates()
             //Console.WriteLine(data);
             //Console.WriteLine("");
 
-            string[] boardingGatesDetails = data.Split(",");w
+            string[] boardingGatesDetails = data.Split(",");
 
             // NOTE
             // DATA[0] REPRESENTS BOARDING GATE 
@@ -1053,22 +1053,27 @@ void DisplayTotalFee()
     // CHANGES ADDED TO CLASS :
     // flight : new property - boardinggate 
     // airline : new property - subtotal 
+    // flight : new property - subtotal 
 
     Console.WriteLine("======================================================");
-    Console.WriteLine("Total Fee per Airline for Changi Airport Terminal 5");
+    Console.WriteLine("Total Fee per Flight and Airline for Changi Airport Terminal 5");
     Console.WriteLine("======================================================");
 
     // checking if all flights have been assigned to a boarding gate 
 
     double total_fee = 0;
+    Console.WriteLine();
+    //Console.WriteLine($"Flights Total Fees");
+    //Console.WriteLine("=============================================");
+    //Console.WriteLine();
 
-        foreach (Flight flight in FlightDict.Values)
+    foreach (Flight flight in FlightDict.Values)
         {
-        total_fee = 0; // resets the fee to 0 for every flight
+        total_fee = 0;  // resets the fee to 0 for every flight
 
-        // if want to debug, comment out the first 'if' and ADD 'flight.BoardingGate = BoardingGateDict.Values.First();' IN FRONT OF THE NEXT 'IF'
+        //if want to debug, comment out the first 'if' and ADD 'flight.BoardingGate = BoardingGateDict.Values.First();' IN FRONT OF THE NEXT 'IF'
 
-        /*if (flight.BoardingGate == null) // CHECKING IF FLIGHT HAS A BOARDING GATE 
+        if (flight.BoardingGate == null) // CHECKING IF FLIGHT HAS A BOARDING GATE 
         {
             Console.WriteLine();
             Console.WriteLine("Not all flights have been assigned to a boarding gate.");
@@ -1076,8 +1081,8 @@ void DisplayTotalFee()
             return;
         }
 
-        else*/
-        //flight.BoardingGate = BoardingGateDict.Values.First();
+        //else*/
+         //flight.BoardingGate = BoardingGateDict.Values.First();
         else if (flight.BoardingGate != null) // FLIGHT HAS A BOARDING GATE , COMPUTING THE TOTAL, NEED TO ACTUALLY ADD THE BOARDING GATES INTO THE FLIGHT PROPERTY!! HAS AN ELSE 
             {
                 // CHECKING THE ORIGIN/DESTINATION
@@ -1111,7 +1116,14 @@ void DisplayTotalFee()
 
                 // BOARDING GATE BASE FEE
                 total_fee += 300;
-                Airline chosen_airline = null; 
+
+                flight.TotalCost = total_fee; // assigning each flight's inidivual cost
+
+            
+
+            
+
+            Airline chosen_airline = null; 
 
                 foreach (Airline airline in AirlineDict.Values) // checking which airline the flight is from 
                 {
@@ -1121,6 +1133,7 @@ void DisplayTotalFee()
                         {
                             chosen_airline = airline;
                             chosen_airline.SubTotal += total_fee;
+
                         }
                     }
                 }
@@ -1132,6 +1145,11 @@ void DisplayTotalFee()
         // AFTER COMPUTING THE TOTAL, NEED TO COMPUTE THE DISCOUNTS ETC 
         foreach (Airline airline1 in AirlineDict.Values)
         {
+        Console.WriteLine("=============================================");
+        Console.WriteLine($"{airline1.Name}'s Fees");
+        Console.WriteLine("=============================================");
+        //Console.WriteLine();
+
         total_discount = 0;
             double initial_amount = airline1.SubTotal;
             double count = 0; // COUNTING THE NUMBER OF FLIGHTS, for EACH airline 
@@ -1163,12 +1181,14 @@ void DisplayTotalFee()
                 {
                     airline1.SubTotal -= 110;
                     total_discount += 110;
+                    flights.Discount += 110;
                 }
 
                 if (flights.Origin == "Dubai (DXB)" || flights.Origin == "Bangkok (BKK)" || flights.Origin == "Tokyo (NRT)")
                 {
                     airline1.SubTotal -= 25;
                     total_discount += 25;
+                flights.Discount += 25;
 
                 }
 
@@ -1176,24 +1196,38 @@ void DisplayTotalFee()
                 {
                     airline1.SubTotal -= 50;
                     total_discount += 50;
+                    flights.Discount += 50;
                 }
-            }
+
+            Console.WriteLine("");
+            Console.WriteLine($"{flights.FlightNumber}'s Fees");
+            Console.WriteLine("=====================================");
+            Console.WriteLine($"Initial Amount : ${flights.TotalCost}");
+            Console.WriteLine($"Total Discount : ${flights.Discount}");
+            Console.WriteLine($"Final Amount : ${flights.TotalCost - flights.Discount}");
+            Console.WriteLine("=====================================");
+            Console.WriteLine("");
+
+        }
 
         // DISPLAYING THE AMOUNT FOR EACH AIRLINE
         double percentage_of_discount = total_discount / initial_amount * 100; // percentage of the discount
 
-        Console.WriteLine($"Airlines Total Fees");
-        Console.WriteLine("=============================================");
+        //Console.WriteLine($"Airlines Total Fees");
+        //Console.WriteLine("=============================================");
 
         Console.WriteLine("");
         Console.WriteLine($"{airline1.Name}'s Total Fees");
-        Console.WriteLine("=============================================");
+        Console.WriteLine("=====================================");
         Console.WriteLine($"Initial Amount : ${initial_amount}");
         Console.WriteLine($"Total Discount : ${total_discount}");
         Console.WriteLine($"Percentage of Discount : {percentage_of_discount.ToString("F2")}%");
         Console.WriteLine($"Total Final Fees : ${airline1.SubTotal}");
+        Console.WriteLine("=====================================");
         Console.WriteLine("");
-        }
+        Console.WriteLine("");
+         
+    }
 
 }
 
@@ -1249,7 +1283,7 @@ while (true)
     }
     else if (user_option == 1)
     {
-        // HT'S FUNCTION
+        ListFlightDetails();
     }
     else if (user_option == 2)
     {
@@ -1257,11 +1291,11 @@ while (true)
     }
     else if (user_option == 3)
     {
-        // HT'S FUNCTION
+        AssignBoardingGateToFlight();
     }
     else if (user_option == 4)
     {
-        // HT'S FUNCTION
+        CreateFlight();
     }
     else if (user_option == 5)
     {
@@ -1273,11 +1307,11 @@ while (true)
     }
     else if (user_option == 7)
     {
-        // HT'S FUNCTION
+        DisplayFlights();
     }
     else if (user_option == 8)
     {
-        // HT'S FUNCTION
+        ProcessUnassignedFlights(); // UNDONE
     }
     else if (user_option == 9)
     {

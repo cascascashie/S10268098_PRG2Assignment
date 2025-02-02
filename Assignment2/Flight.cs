@@ -19,6 +19,8 @@ namespace Assignment2
         public string Destination { get; set; }
         public DateTime ExpectedTime { get; set; }
         public string Status { get; set; }
+        public double TotalCost { get; set; }
+        public double Discount { get; set; }
 
         public BoardingGate BoardingGate { get; set; } // ADDED FOR THE ADVANCED METHOD, DO NOT USE FOR BASIC METHODS!
 
