@@ -919,7 +919,7 @@ void ProcessUnassignedFlights()
     Queue<Flight> unassignedFlights = new Queue<Flight>();
     int totalUnassigned = 0;
     int UnassignedGates = 0;
-    int originalUnassigned = 0;
+    int originalUnassigned = 0; 
     int successfullyAssigned = 0;
 
     //checks all scheduled flights and adds those with unassigned boarding gates to queue
