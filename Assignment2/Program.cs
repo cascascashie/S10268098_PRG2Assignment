@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using Assignment2;
 
+//==========================================================
+// Student Number : S10268098
+// Student Name : Dinglasan Casandra Antonia Sarmiento 
+// Partner Name : Khin Hnin Thaw
+//==========================================================
+
+
 // DICTIONARY'S
 // AIRLINES
 Dictionary<string, Airline> AirlineDict = new Dictionary<string, Airline>();
